@@ -2,7 +2,6 @@
 
 Author:   
 Hung Ka Hing   3035752750  
-Huang Jia Xin  3035771517
 
 ## **0. Annotation from Developers**
 
@@ -11,13 +10,9 @@ Huang Jia Xin  3035771517
 #### **Hung Ka Hing:**
 "makefile", "structure.h", "main.cpp", "interface.h", "interface.cpp", "game_status.h", "game_status.cpp", "survival.h", "survival.cpp", "explore.h", "explore.cpp", "battle.h", "battle.cpp", "story.h", "story.cpp", "README.MD"
 
-#### **Huang Jia Xin:**
-"story.h", "story.cpp", "story.txt", "README.MD"
-
-
 ### **0.2 Quick Start**
 
-  Environment: X2go terminal
+  Environment: Linux terminal
  
   Compile Instruction: "make game"
 
