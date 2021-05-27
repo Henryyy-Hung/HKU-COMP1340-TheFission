@@ -14,9 +14,7 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
 
   Environment: Linux terminal
  
-  Compile Instruction: "make game"
-
-  Execution Instruction: “./game”
+  Execution Instruction: “./start.sh”
 
     
 ## **1.Introduction of Game**
