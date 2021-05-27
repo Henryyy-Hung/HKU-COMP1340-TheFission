@@ -18,11 +18,6 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
 
   Execution Instruction: “./game”
 
-### **0.3 Sample Input and Output file**
-
-  As this is a RPG game with a lot of randomness, there is **no standard sample input or sample output**. However, we will still provide an output file with text screen captures.
-
-  Furthermore, we provide the "profile.txt" that could be load after starting the game (press 'l' in keyboard). By using this loading, you will get almost infinite resources and unreasonably high attack point. This means you can explore and test freely in the game without the concern of character death.
     
 ## **1.Introduction of Game**
 
