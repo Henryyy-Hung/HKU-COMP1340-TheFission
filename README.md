@@ -5,10 +5,10 @@ Hung Ka Hing
 
 ## **0. Annotation from Developers**
 
-### **0.1 Contribution**
+### **0.1 Game demonstration**
 
-#### **Hung Ka Hing:**
-"makefile", "structure.h", "main.cpp", "interface.h", "interface.cpp", "game_status.h", "game_status.cpp", "survival.h", "survival.cpp", "explore.h", "explore.cpp", "battle.h", "battle.cpp", "story.h", "story.cpp", "README.MD"
+https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=sharing
+
 
 ### **0.2 Quick Start**
 
