@@ -13,7 +13,7 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
 
   Environment: Linux terminal
  
-  Execution Instruction: “./start.sh”
+  Execution Instruction: execute “./start.sh” in root dictionary of the repo
 
     
 ## **1.Introduction of Game**
