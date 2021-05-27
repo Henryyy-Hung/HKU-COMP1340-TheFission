@@ -22,6 +22,9 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
 
   The proposed game, "The Fission", is an "open-world" adventure RPG game. The player could enjoy the fun of battle, survive, explore, and storyline.  Not only does it uses traditional turn-based combat, but it also extends the battlefield from 1D to 2D. The background and four significant elements will be introduced in the following section.
   
+  ![截图录屏_选择区域_20210527165058](https://user-images.githubusercontent.com/78750074/119873222-e54c2f00-bf56-11eb-8fb3-d31e1c19a5d9.jpg)
+
+  
 ### **1.2 Introduction of Game Background**
 
   The storyline is set in a post-war period. The hydrogen bomb was applied during World War IV. Eventually, the world is full of corpses and radiation. One day, a mutated virus is derived from the corpse and hide in the refugee's body. Soon, the virus spread to all the continents. At the "Black Christmas", the virus outbreaks. All the virus carriers, including humans and animals, are mutated into aggressive monsters. Since all the resources were inputted into the war, humans failed to defeat the virus. As a result, 80% of humans were "converted", the remaining survivor then follow the army and escape to the sanctuary. As everything was derived from the fission, the year next was named T.F. 00.
