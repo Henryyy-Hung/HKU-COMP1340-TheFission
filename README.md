@@ -1,7 +1,7 @@
 # **Proposal on The Fission**
 
 Author:   
-Hung Ka Hing   3035752750  
+Hung Ka Hing  
 
 ## **0. Annotation from Developers**
 
