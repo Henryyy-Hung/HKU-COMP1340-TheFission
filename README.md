@@ -13,7 +13,9 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
 
   Environment: Linux terminal
  
-  Execution Instruction: execute “./start.sh” in root dictionary of the repo
+  Execution Instruction: 
+                        chmod 700 start.sh
+                        ./start.sh
 
     
 ## **1.Introduction of Game**
