@@ -214,15 +214,11 @@ int display_story(Profile &player, Node * story)
 			getline(fin, line_2);
 			getline(fin, line_3);
 
-			for (int i = 0; i < line_2.length(); i++)
+			if ( ! is_english(line_2) || ! is_english(line_3) )
 			{
-				if ( (int) line_2[i] < 0)
-				{
-					chinese = true;
-					english = false;
-					line_1 = "　你的选择是？";
-					break;
-				}
+				line_1 = "　你的选择是？";
+				english = false;
+				chinese = true;
 			}
 
 			refresh(100);
@@ -245,8 +241,12 @@ int display_story(Profile &player, Node * story)
 			refresh(100);
 			status_interface(player);
 			logo_interface_story();
-			if (english) text_interface(format_lines("Your decision is:" + choice, "", "Note: Please follow the Navigator"));
-			else if (chinese) text_interface(format_lines("你的选择是：" + choice, "　",  "注：请根据导航寻找剧情点"));
+
+			if (english) 
+				text_interface(format_lines("Your decision is:" + choice, "", "Note: Please follow the Navigator"));
+			else if (chinese) 
+				text_interface(format_lines("你的选择是：" + choice, "　",  "注：请根据导航寻找剧情点"));
+
 			input();
 			break;
 		}

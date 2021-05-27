@@ -44,4 +44,6 @@ string format_grids(string, string, string, string);
 
 string itoa(int, char);
 
+bool is_english(string);
+
 #endif
