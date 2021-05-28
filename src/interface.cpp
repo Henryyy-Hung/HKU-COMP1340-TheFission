@@ -643,6 +643,21 @@ void logo_interface_loss(void)
 	main_interface(lines);
 }
 
+void black_screen(void)
+{
+	string lines[13];
+
+	string word = "Love you 3000 ";
+
+	for (int i = 0; i < 10; i++)
+		word += word;
+
+	for (int i = 0; i < 13; i++)
+		lines[i] = word.substr(i * 2, Length);
+
+	main_interface(lines);
+}
+
 
 // Input: a item type array containning info of items, and int array containning quantity of item player owns
 // Output: void

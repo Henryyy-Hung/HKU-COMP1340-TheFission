@@ -60,13 +60,12 @@ int main(int argc, char *argv[])
 	{
 		if ( hold == false || (game_over(player) && !restart(player)) )
 		{
-			string empty[13];
 			lines[0] = " Quit sucessfully.";
 			lines[1] = "";
 			lines[2] = "";
 			refresh(100);
 			status_interface(player);
-			main_interface(empty);
+			black_screen();
 			text_interface(format_lines(lines[0], lines[1], lines[2]));
 			break;
 		}
@@ -287,6 +286,7 @@ int main(int argc, char *argv[])
 					input();
 					warning_count++;
 				}
+				break;
 		}
 
 		for (int i = -1; i <= 1; i++)						// search whether there is story around the player (3 x 3)

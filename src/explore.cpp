@@ -279,65 +279,60 @@ void buff(Profile& player, string type, int value)
 // Meaning: increase elements that is fun, as there is often positive and negative effect on same item. User have to evaluate it.
 bool bag_manipulation(Profile& player, char mode)
 {
-	default_page_b(player);					// print status and bag interface
-	default_text_b();					// print command instruction
+	bool hold  = true;
 
-	bool use_a_item = false;				// record the item is used
+	default_page_b(player);						// print status and bag interface
+	default_text_b();						// print command instruction
 
 	while (true)
 	{
-		char command = input();				// receive input char as command
-		string temp1 = "", temp2 = "", temp3 = "";	// 3 lines ready for output in text interface
+		char command = input();					// receive input char as command
+		string lines[3];
 
-		if ( command == 'b' )				// quit the bag interface and return to the map interface
-			break;
-
-		else if ( command >= '0' && command <= '8' )	// use items numbered 0 to 8.
+		if ( command == 'b' || ! hold )				// quit the bag interface and return to the map interface
 		{
-			int index = (int) command - '0';	// convert the input char into int
+			break;
+		}
+		else if ( command >= '0' && command <= '8' )		// use items numbered 0 to 8.
+		{
+			int index = (int) command - '0';		// convert the input char into int
 
-			if (player.item[index] > 0)		// check the quantity of item
+			if (player.item[index] > 0)			// check the quantity of item
 			{
-				buff( player, items[index].type_1, atoi(items[index].effect_1.c_str()) );	// modify status base on effect 1
-	
-				if ( items[index].type_2 != "" && items[index].effect_2 != "" )			// modify status base on efefct 2
-					buff(player, items[index].type_2, atoi(items[index].effect_2.c_str()) );
-
-				temp1 = " " + items[index].name + " is used.";					// show the thing has been used
-				temp2 = " " + items[index].annotation;						// show the annotation of developer
-
-				player.item[index] -= 1;	// decrease the quantity of item by 1.
-
-				if ( mode != 'e' )		// if not in exploration mode, teminate the page.(allow 1 act only).
+				if ( ! items[index].type_1.empty() && ! items[index].effect_1.empty() )		// modify status base on effect 1
 				{
-					use_a_item = true;
+					buff( player, items[index].type_1, atoi(items[index].effect_1.c_str()) );
+				}
+				if ( ! items[index].type_2.empty() && ! items[index].effect_2.empty() )		// modify status base on efefct 2
+				{
+					buff(player, items[index].type_2, atoi(items[index].effect_2.c_str()) );
+				}
+				lines[0] = " " + items[index].name + " is used.";				// show the thing has been used
+				lines[1] = " " + items[index].annotation;					// show the annotation of developer
+				player.item[index] -= 1;		// decrease the quantity of item by 1.
+				if ( mode != 'e' )			// if not in exploration mode, teminate the page.(allow 1 act only).
+				{	
+					hold = false;
 				}
 			}
-			else					// if quantity is 0, notice the user.
+			else						// if quantity is 0, notice the user.
 			{
-				temp1 = " You don't have this item.";
-				temp2 = " Press ENTER to continue.";
+				lines[0] = " You don't have this item.";
+				lines[1] = " Press ENTER to continue.";
 			}
 		}
+		default_page_b(player);					// show default page of bag interface
 
-		default_page_b(player);				// show default page of bag interface
-
-		if ( temp1 != "" || temp2 != "" || temp3 != "" )
+		if ( ! lines[0].empty() || ! lines[1].empty() || ! lines[2].empty() )
 		{
-			text_interface(format_lines(temp1, temp2, temp3));
+			text_interface(format_lines(lines[0], lines[1], lines[2]));
 		}
-		else						// show command instruction.
+		else							// show command instruction.
 		{
 			default_text_b();
 		}
-
-		if ( use_a_item )				// in battle mode, only usage of one item is allowed
-		{
-			input();
-			break;					// terminate program if one item is used
-		}
 	}
-	return use_a_item;					// indicate whether a item is used
+	return ! hold;							// indicate whether a item is used
 }
 
 void detect(Profile player, int ** map, Point location)

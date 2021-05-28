@@ -34,6 +34,8 @@ void logo_interface_loss(void);
 
 void bag_interface(Item[], int []);
 
+void black_screen();
+
 void text_interface(string);
 
 char input(void);
