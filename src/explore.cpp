@@ -66,11 +66,17 @@ void map_generator(int ** map, int  map_len)
 		for (int j = 0; j < map_len; j++)		// iterate through all element of map
 		{
 			if ( i <= min + 10 || i >= max - 10 || j <= min + 10 || j >= max - 10 )
+			{
 				map[i][j] = 999;		// set the boundary part to be wall(999)
+			}
 			else if ( i <= min + 15 || i >= max - 15 || j <= min + 15 || j >= max - 15 )
+			{
 				event_allocator(map[i][j], 1, 1);
+			}
 			else
+			{
 				event_allocator(map[i][j], 1, 0);
+			}
 		}
 	}
 			
@@ -332,6 +338,30 @@ bool bag_manipulation(Profile& player, char mode)
 		}
 	}
 	return use_a_item;					// indicate whether a item is used
+}
+
+void detect(Profile player, int ** map, Point location)
+{
+	string lines[3];
+	int monster = 0;
+
+	for (int i = location.x - 1; i <= location.x + 1; i++)
+		for (int j = location.y - 1; j <= location.y + 1; j++)
+			if ( map[i][j] == 10 || map[i][j] == 99)
+			{
+				monster++;
+				map[i][j] = 99;
+			}
+
+	lines[0] = " There are " + itoa(monster, 'u') + " monster is found around 3 x 3 grids.";
+	lines[1] = " Safe area has been labelled.";
+	lines[2] = " Press ENTER to continue.";
+
+	refresh(100);
+	status_interface(player);
+	map_interface(map, location);
+	text_interface( format_lines( lines[0], lines[1], lines[2]) );
+	input();
 }
 
 	

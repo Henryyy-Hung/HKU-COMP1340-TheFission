@@ -18,4 +18,6 @@ bool moved(Profile&, int**, Point&, char);
 
 bool bag_manipulation(Profile&, char);
 
+void detect(Profile, int**, Point);
+
 #endif

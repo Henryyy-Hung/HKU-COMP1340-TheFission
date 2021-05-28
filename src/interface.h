@@ -18,6 +18,8 @@ void navigator_interface(Profile, Point);
 
 void manual_interface(void);
 
+void main_interface(string [13]);
+
 void logo_interface_fission(void);
 
 void logo_interface_fight(void);

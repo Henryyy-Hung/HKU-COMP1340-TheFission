@@ -11,14 +11,16 @@
 #include <stdio.h> 
 #include <termio.h>
 #include <unistd.h>
+
 #include <string>
+#include <vector>
+
 #include <cmath>
 #include <iomanip>
 #include <cstdlib>
 #include <ctime>
 #include <climits>
 #include <algorithm>
-#include <vector>
 
 using namespace std;
 
