@@ -34,6 +34,8 @@ else
 	echo "$0: Story document is missed"
 fi
 
+sleep 1s
+
 echo "$boundary"
 
 echo -n "$0: Start the game immeadiately? [y/n]: "

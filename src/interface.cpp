@@ -677,7 +677,7 @@ void black_screen(void)
 		word += word;
 
 	for (int i = 0; i < 13; i++)
-		lines[i] = word.substr(i * 5, Length);
+		lines[i] = word.substr(i * 3, Length);
 
 	main_interface(lines);
 }
