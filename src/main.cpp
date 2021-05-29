@@ -50,6 +50,7 @@ int main(int argc, char *argv[])
 	Point destiny = initialize_destiny(player, story);			// the location that trigger out story
 
 	bool skip = true;
+	bool test = (argc > 1)? true:false;
 	int warning_count = 0;							// times of warning for player
 
 	bool hold = true;
@@ -92,9 +93,9 @@ int main(int argc, char *argv[])
 
 		{
 			destiny = initialize_destiny(player, story);
-			lines[0] = "";
-			lines[1] = "";
-			lines[2] = "";
+			lines[0].clear();
+			lines[1].clear();
+			lines[2].clear();
 		}
 		
 		switch ( command )
@@ -166,10 +167,10 @@ int main(int argc, char *argv[])
 					int randint = rand() % 100 + 1;
 					int min = 0, max = map_len - 1;
 
-					status_after_move(player);
+					if ( ! test ) status_after_move(player);
 					map[x][y] = 0;
 
-					if ( ( max - x <= 20 || x - min <= 20 || max - y <= 20 || y - min <= 20 ) && map_len * 2 < pow(2, 31))
+					if ( ( max - x <= 20 || x - min <= 20 || max - y <= 20 || y - min <= 20 ) && map_len * 2 < pow(2, 13))
 					{
 						extend_map(map, map_len, location);
 					}
@@ -203,6 +204,7 @@ int main(int argc, char *argv[])
 								lines[1] = " You got Radiated Water x 1.";
 							}
 							break;
+
 						case 3:
 							lines[0] = " You encountered with a hospital.";
 							if ( randint > 50 )
@@ -230,6 +232,7 @@ int main(int argc, char *argv[])
 								lines[1] = " You got Unknown Potion x 1.";
 							}
 							break;
+
 						case 4:
 							lines[0] = " You encountered with a food shop.";
 							if ( randint > 50 )						
@@ -248,22 +251,28 @@ int main(int argc, char *argv[])
 								lines[1] = " You got Meat x 1.";
 							}
 							break;
+
 						case 5:
 							player.attack++;
 							lines[0]  = " You encountered with a weapon shop.";
 							lines[1]  = " Your attack become " + itoa(player.attack, 'u') + " + 1.";
 							break;
+
 						case 10: case 99:
+							if ( test ) break;
 							battle(player, map, location);
 							break;
+
 						case 11:
+							if ( test ) break;
+							string notice[3];
+							notice[0] = " You have encountered with a Maze.";
+							notice[1] = " The Exit is on top right and bottome left corner.";
+							notice[2] = " Press ENTER to continue.";
 							refresh(100);
 							status_interface(player);
 							logo_interface_maze();
-							string maze_1 = " You have encountered with a maze.";
-							string maze_2 = " The exit is on the top right and bottom left corner.";
-							string maze_3 = " Press ENTER to continue.";
-							text_interface( format_lines( maze_1, maze_2, maze_3) );
+							text_interface( format_lines( notice[0], notice[1], notice[2]) );
 							input();
 							maze(map,location);
 							break;
@@ -278,10 +287,10 @@ int main(int argc, char *argv[])
 				else if ( player.hr.quantity == 100 && warning_count < 3 )	
 				{
 					string warning[3];
-					default_page(player, map, location);
 					warning[0] = " Starving !!!";
 					warning[1] = " Please eat something to avoid drop in HP!!!";
 					warning[2] = " Press ENTER to continue.";
+					default_page(player, map, location);
 					text_interface( format_lines( warning[0], warning[1], warning[2] ) );
 					input();
 					warning_count++;
@@ -292,16 +301,16 @@ int main(int argc, char *argv[])
 		for (int i = -1; i <= 1; i++)						// search whether there is story around the player (3 x 3)
 			for (int j = -1; j <= 1; j++)
 			{
-				Point temp = player.location;
-				temp.change(i, j);
-				if (temp == destiny)					// check the triggering position
+				Point nearby = player.location;
+				nearby.change(i, j);
+				if (nearby == destiny)					// check the triggering position
 				{
 					int value = display_story(player, story);	// check the existance of story.txt and play story
 					if (value == 1)
 					{
 						lines[0] = " Please download the story.txt. ";
-						lines[1] = "";
-						lines[2] = "";
+						lines[1].clear();
+						lines[2].clear();
 					}
 					else if (value == 0)
 					{
@@ -332,6 +341,7 @@ void default_page(Profile player, int **map, Point location)
 void default_text(void)
 {
 	string lines[3];
+
 	lines[0] = " Command list:";
 	lines[1] = format_grids( " Move: W A S D", " Rest:   R", "Bag:  B", "Navigator: N");
 	lines[2] = format_grids( " Detect: L"    , " Manual: M", "Save: Z", "Quit: !");
@@ -342,6 +352,7 @@ void default_text(void)
 void log_in_page(Profile & player)
 {
 	string lines[3];
+
 	lines[0] = " Welcome to the world of The Fission !";
 	lines[1] = " Press 'n' to start a new game.";
 	lines[2] = " Press 'l' to load previous profile.";

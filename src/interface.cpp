@@ -5,14 +5,14 @@
 
 #include "interface.h"					// include self defined structures, external library, and function header of interface.cpp
 
-#define HORIZONTAL "\xE2\x94\x81"							// components of bondary of text interface and status interface
+#define HORIZONTAL "\xE2\x94\x81"			// components of bondary of text interface and status interface
 #define VERTICAL "\xE2\x94\x83"
 #define TOP_LEFT "\xE2\x94\x8F"
 #define TOP_RIGHT "\xE2\x94\x93"
 #define BOTTOM_LEFT "\xE2\x94\x97"
 #define BOTTOM_RIGHT "\xE2\x94\x9B"
 
-#define LIGHT_HORIZONTAL "\xE2\x94\x80"							// component of boundary of map interface
+#define LIGHT_HORIZONTAL "\xE2\x94\x80"			// component of boundary of map interface
 #define LIGHT_VERTICAL "\xE2\x94\x82"
 #define ARC_TOP_LEFT "\xE2\x95\xAD"
 #define ARC_TOP_RIGHT "\xE2\x95\xAE"
@@ -24,22 +24,17 @@
 #define HORIZONTAL_DOWN "\xE2\x94\xAC"
 #define HORIZONTAL_UP "\xE2\x94\xB4"
 
-#define BLACK_SQUARE "\xE2\x96\xA0"							// components of status bar
+#define BLACK_SQUARE "\xE2\x96\xA0"			// components of status bar
 #define WHITE_SQUARE "\xE2\x96\xA1"	
 
-#define CHARACTOR 	"\xE2\x98\xBB"							// indicator of charactor
-#define SHADE		"\xE2\x96\x91"							// indicator of boundary
-#define DANGER		"\xE2\x9C\x98 "
+#define CHARACTOR 	"\xE2\x98\xBB"			// indicator of charactor
+#define SHADE		"\xE2\x96\x91"			// indicator of boundary
+#define BLOCK		"\xE2\x96\x91\xE2\x96\x91"
+#define DANGER		"\xE2\x9C\x98"
 
-#define WATER		"WT"
-#define ATTACK		"AT"
-#define FOOD		"FD"
-#define HOSPITAL	"HP"
-#define HOUSE		"UB"
-
-const int Width = 70;									// Width of all interface
-const int Length = Width - 2;								// Length of the output text
-const int Height = 15;									// Height of the main interface (e.g. map & manual)
+const int Width = 70;					// Width of all interface
+const int Length = Width - 2;				// Length of the output text
+const int Height = 15;					// Height of the main interface (e.g. map & manual)
 
 // Input: profile of player
 // Return: void 
@@ -50,7 +45,7 @@ void status_interface(Profile player)
 	cout << TOP_LEFT;								// print the upper boundary
 	for (int i = 0; i < Length; i++)
 		cout << HORIZONTAL;
-	cout << TOP_RIGHT << endl;
+	cout << TOP_RIGHT << '\n';
 
 	int w = (Length - 13) / 2;							// distance from the boundary
 
@@ -64,7 +59,7 @@ void status_interface(Profile player)
 		<< "-"
 		<< setfill(' ')								// set back the fill char to be ' '
 		<< setw( w + ( (Length % 2 == 1)? 0:1 ) ) << ""				// adjust width according to Length	
-		<< VERTICAL << endl;							// print right boundary
+		<< VERTICAL << '\n';							// print right boundary
 
 	cout << setfill(' ') << right;
 
@@ -86,7 +81,7 @@ void status_interface(Profile player)
 		cout << WHITE_SQUARE;
 	cout << " "
 		<< setw(3) << (int) player.sp.quantity << "%" 
-		<< " " << VERTICAL << endl;
+		<< " " << VERTICAL << '\n';
 
 	cout << VERTICAL << " Hunger Point: ";						// same as above, but for hunger point
 	int hr = (int) rint(player.hr.quantity / 10);
@@ -101,12 +96,12 @@ void status_interface(Profile player)
 	cout << "Attack  Point: "							// print the attack point in status interface
 		<< left << setw( Length - 52 )
 		<< player.attack
-		<< VERTICAL << endl;
+		<< VERTICAL << '\n';
 
 	cout << BOTTOM_LEFT;								// print the lower boundary
 	for (int i = 0; i < Length; i++)
 		cout << HORIZONTAL;
-	cout << BOTTOM_RIGHT << endl;
+	cout << BOTTOM_RIGHT << '\n';
 }
 
 bool is_english(string line)
@@ -179,17 +174,17 @@ void text_interface(string sentence)
 		cout << TOP_LEFT;					// print the upper boundary
 		for (int i = 0; i < Length; i++)
 			cout << HORIZONTAL;
-		cout << TOP_RIGHT << endl;
+		cout << TOP_RIGHT << '\n';
 
 		cout << left;						// print output lines
-		cout << VERTICAL << setw(Length) << line_1 << VERTICAL << endl;	
-		cout << VERTICAL << setw(Length) << line_2 << VERTICAL << endl;
-		cout << VERTICAL << setw(Length) << line_3 << VERTICAL << endl;
+		cout << VERTICAL << setw(Length) << line_1 << VERTICAL << '\n';	
+		cout << VERTICAL << setw(Length) << line_2 << VERTICAL << '\n';
+		cout << VERTICAL << setw(Length) << line_3 << VERTICAL << '\n';
 
 		cout << BOTTOM_LEFT;					// print the lower boundary
 		for (int i = 0; i < Length; i++)
 				cout << HORIZONTAL;
-		cout << BOTTOM_RIGHT << endl;
+		cout << BOTTOM_RIGHT << '\n';
 	}
 }
 
@@ -197,28 +192,37 @@ void text_interface(string sentence)
 // Return: void
 // Function: to print the integer into the symbol it represent on the map
 // Meaning: a sub-function of map_interface(), to facilitate modularization
-void map_convertor(int symbol)
+string map_convertor(const int & symbol)
 {
-	if ( symbol == 0 )					// empty grid's content
-		cout << "  ";
-	else if ( symbol == 1 )					// unknown building's content
-		cout << HOUSE;
-	else if ( symbol == 2 )					// lake's content
-		cout << WATER;
-	else if ( symbol == 3 )					// Hospital's content
-		cout << HOSPITAL;
-	else if ( symbol == 4 )					// Food shop's content
-		cout << FOOD;
-	else if ( symbol == 5 )					// Weapon shop's content
-		cout << ATTACK;
-	else if ( symbol == 99 )
-		cout << DANGER;
-	else if ( symbol > 100 && symbol < 200 )		// location of monster
-		cout << right << setw(2) << symbol % 100;
-	else if ( symbol == 999 || symbol == 998 )		// boundary's content
-		cout << SHADE << SHADE;
-	else							// advoid bug
-		cout << "  ";
+	switch ( symbol )
+	{
+		case 0:						// empty grid's content
+			return "  ";
+		case 1:						// unknown building's content
+			return "UB";
+		case 2:						// lake's content
+			return "WT";
+		case 3:						//Hospital's content
+			return "HP";
+		case 4:						// Food shop's content
+			return "FD";
+		case 5:						// Weapon shop's content
+			return "AT";
+		case 99:					// DANGER sign
+			return "\xE2\x9C\x98 ";
+		case 998: case 999:				// wall
+			return "\xE2\x96\x91\xE2\x96\x91";
+		default:
+			if ( symbol > 100 && symbol < 200 )	// monster
+			{
+				string output = itoa(symbol % 100, 'u');
+				return ( output.length() == 2 ) ? output : " " + output;
+			}
+			else
+			{
+				return "  ";
+			}
+	}
 
 }
 
@@ -228,72 +232,90 @@ void map_convertor(int symbol)
 // Meaning: increase the readability of map and make the game more user-friendly
 void map_interface(int **map, Point location)
 {
-	int x = location.x;							// x coordinate of the player					
-	int y = location.y;							// y coordinate of the player
-	int h_range = (Width - 1) / 3;						// no. of horizontal grids that will be printed
-	int v_range = (Height - 1) / 2;						// no. of vertical grids that will be printed
+	//int x = location.x;							// x coordinate of the player		
+	//int y = location.y;							// y coordinate of the player
+	//int h_range = (Width - 1) / 3;					// no. of horizontal grids that will be printed
+	//int v_range = (Height - 1) / 2;					// no. of vertical grids that will be printed
+	//int east = x + (h_range - 1) / 2 - 1;					// max. x coordinate of the map that will be printed
+	//int west = x - (h_range - 1) / 2 + 1;					// min. x coordinate of the map that will be printed
+	//int north = y + (v_range - 1) / 2;					// max. y coordinate of the map that will be printed
+	//int south = y - (v_range - 1) / 2;					// min. y coofdinate of the map that will be printed
 
-	int east = x + (h_range - 1) / 2 - 1;					// max. x coordinate of the map that will be printed
-	int west = x - (h_range - 1) / 2 + 1;					// min. x coordinate of the map that will be printed
-	int north = y + (v_range - 1) / 2;					// max. y coordinate of the map that will be printed
-	int south = y - (v_range - 1) / 2;					// min. y coofdinate of the map that will be printed
+	int east = location.x + 10;
+	int west = location.x - 10;
+	int north = location.y + 3;
+	int south = location.y - 3;
 	
-	cout << "   ";
-	cout << ARC_TOP_LEFT;							// print the upper boundary
-	for (int i = 0; i < Width - 8; i++)
+	int idx = 0;
+	static string lines[Height];
+
+	if ( lines[idx].empty() )
 	{
-		if ( i % 3 == 0  || i % 3 == 1)
-			cout << LIGHT_HORIZONTAL;
-		else 
-			cout << HORIZONTAL_DOWN;
+		lines[idx] = ARC_TOP_LEFT;
+		for (int i = 0; i < Width - 8; i++)
+		{
+			if ( i % 3 == 2 )
+				lines[idx] += HORIZONTAL_DOWN;
+			else
+				lines[idx] += LIGHT_HORIZONTAL;
+		}
+		lines[idx] += ARC_TOP_RIGHT;
 	}
-	cout << ARC_TOP_RIGHT
-		<< endl;
+	idx++;
 
 	for (int j = north; j >= south; j--)					// iterate the y coordinate of map from north to south
 	{
 		if ( j != north )						// print horizontal boundary between grids
 		{
-			cout << "   ";
-			cout << VERTICAL_RIGHT;
-			for (int i = 0; i < Width - 8; i++)
+			if ( lines[idx].empty() )
 			{
-				if ( i % 3 == 0 || i % 3 == 1)
-					cout << LIGHT_HORIZONTAL;
-				else
-					cout << CROSS;
+				lines[idx] = VERTICAL_RIGHT;
+				for (int i = 0; i < Width - 8; i++)
+				{
+					if ( i % 3 == 2 )
+						lines[idx] += CROSS;
+					else
+						lines[idx] += LIGHT_HORIZONTAL;
+				}
+				lines[idx] += VERTICAL_LEFT;
 			}
-			cout << VERTICAL_LEFT
-				<< endl;
+			idx++;
 		}
 
-		cout << "   ";
+		lines[idx]= LIGHT_VERTICAL;
 		for (int i = west; i <= east; i++)				// iterate the x coordinate of map from west to east
 		{
-			if ( i == west)
-				cout << LIGHT_VERTICAL;				// print the left-most boundary
-
-			if ( i == x && j == y)
-				cout << CHARACTOR << " ";			// print user's location
+			if ( i != location.x || j != location.y )
+			{
+				lines[idx] += map_convertor(map[i][j]);
+			}
 			else
-				map_convertor(map[i][j]);			// print the symbol represented by the map[i][j]
-
-			cout << LIGHT_VERTICAL;					// print the right-most boundary
+			{
+				lines[idx] += CHARACTOR;			// print user's location
+				lines[idx] += " ";
+			}
+			lines[idx] += LIGHT_VERTICAL;				// print the right-most boundary
 		}
-		cout << endl;
+		idx++;
 	}
 
-	cout << "   ";
-	cout << ARC_BOTTOM_LEFT;						// print the lower boundary
-	for (int i = 0; i < Width - 8; i++)
+	if ( lines[idx].empty() )
 	{
-		if ( i % 3 == 0 || i % 3 == 1)
-			cout << LIGHT_HORIZONTAL;
-		else
-			cout << HORIZONTAL_UP;
+		lines[idx] = ARC_BOTTOM_LEFT;					// print the lower boundary
+		for (int i = 0; i < Width - 8; i++)
+		{
+			if ( i % 3 == 2 )
+				lines[idx] += HORIZONTAL_UP;
+			else
+				lines[idx] += LIGHT_HORIZONTAL;
+		}
+		lines[idx] += ARC_BOTTOM_RIGHT;
 	}
-	cout << ARC_BOTTOM_RIGHT
-		<< endl;
+
+	for (int i = 0; i < Height; i++)
+	{
+		cout << "   " << lines[i] << '\n';
+	}
 }
 
 // Input; a string with unknown length, a int shows desire length
@@ -369,7 +391,7 @@ string format_lines(string l1, string l2, string l3)
 string format_grid(string grid)
 {
 	int len = Length / 4;
-	for (int i = 0; grid.length() < len; i++)
+	while ( grid.length() < len )
 		grid += " ";
 	return grid.substr(0, len);
 }
@@ -439,11 +461,13 @@ void navigator_interface(Profile player, Point destiny)
 	else if ( x < 0 && y < 0 )
 		direction = "South-West";
 
-	string line_1 = format_string(" Direction: " + direction, 30) + "Current: " + current_location;
-	string line_2 = format_string(" Distance:  " + distance, 30) + "Target:  " + target_location;
-	string line_3  = " Press ENTER to continue.";
+	string lines[3];
 
-	text_interface( format_lines( line_1, line_2, line_3) );
+	lines[0] = format_string(" Direction: " + direction, 30) + "Current: " + current_location;
+	lines[1] = format_string(" Distance:  " + distance, 30) + "Target:  " + target_location;
+	lines[2]  = " Press ENTER to continue.";
+
+	text_interface( format_lines( lines[0], lines[1], lines[2]) );
 }
 
 void main_interface(string lines[13])
@@ -455,7 +479,7 @@ void main_interface(string lines[13])
 	{
 		cout << LIGHT_HORIZONTAL;
 	}
-	cout << ARC_TOP_RIGHT << endl;
+	cout << ARC_TOP_RIGHT << '\n';
 
 	for (int i = 0; i < 13; i++)
 	{
@@ -464,7 +488,7 @@ void main_interface(string lines[13])
 
 	for (int i = 0; i < 13; i++)
 	{
-		cout << "   " << LIGHT_VERTICAL << lines[i] << LIGHT_VERTICAL << endl;
+		cout << "   " << LIGHT_VERTICAL << lines[i] << LIGHT_VERTICAL << '\n';
 	}
 
 	cout << "   " << ARC_BOTTOM_LEFT;				
@@ -472,7 +496,7 @@ void main_interface(string lines[13])
 	{
 			cout << LIGHT_HORIZONTAL;
 	}
-	cout << ARC_BOTTOM_RIGHT << endl;
+	cout << ARC_BOTTOM_RIGHT << '\n';
 }
 
 // Input: void
@@ -647,13 +671,13 @@ void black_screen(void)
 {
 	string lines[13];
 
-	string word = "Love you 3000 ";
+	string word = "Author: Henryyy         ";
 
 	for (int i = 0; i < 10; i++)
 		word += word;
 
 	for (int i = 0; i < 13; i++)
-		lines[i] = word.substr(i * 2, Length);
+		lines[i] = word.substr(i * 5, Length);
 
 	main_interface(lines);
 }

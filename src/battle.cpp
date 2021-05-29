@@ -368,14 +368,15 @@ void battle(Profile & player, int** map, Point & location)
 		}
 		
 		{
-			lines[0] = "";
-			lines[1] = "";
-			lines[2] = "";
+			lines[0].clear();
+			lines[1].clear();
+			lines[2].clear();
 		}
 
 		switch ( command )
 		{
 			case 'w': case 'a': case 's': case 'd':
+			{
 				if ( player.sp.quantity == 0 )
 				{
 					lines[0] = " Yours SP become 0.";
@@ -397,15 +398,17 @@ void battle(Profile & player, int** map, Point & location)
 					lines[1] = " Press ENTER to continue.";
 				}
 				break;
-
+			}
 			case 'b':
+			{
 				if ( bag_manipulation(player, 'b') )
 				{
 					round++;
 				}
 				break;
-
+			}
 			case 'e':
+			{
 				round++;
 
 				if ( (rand() % 100 > 50 ) )
@@ -420,8 +423,11 @@ void battle(Profile & player, int** map, Point & location)
 					lines[1] = " Press ENTER to continue.";
 				}
 				break;
-
+			}
 			case 'k':
+			{
+				round++;
+
 				int valid_attack = 0;							// no. of non-zero attack on monster
 
 				for (int i = 0; i < monster_num; i++)					// iterate through monster
@@ -463,7 +469,7 @@ void battle(Profile & player, int** map, Point & location)
 						valid_attack++;
 					}
 				}
-				if ( valid_attack == 0 )
+				if ( ! valid_attack )
 				{
 					lines[0] = " You are too far waya from enemy.";
 					lines[1] = " All attack failed.";
@@ -471,13 +477,12 @@ void battle(Profile & player, int** map, Point & location)
 				}				
 				else
 				{
-					round++;
-
-					lines[0] = "";
-					lines[1] = "";
-					lines[2] = "";
+					lines[0].clear();
+					lines[1].clear();
+					lines[2].clear();
 				}
 				break;
+			}
 		}
 
 		if (round == 2)
@@ -507,42 +512,62 @@ void battle(Profile & player, int** map, Point & location)
 
 					lines[0] = format_grids(column[0], column[1], column[2], column[3]);
 
-					char command = 'x';
+					char command = '\0';
 
 					{
 						if ( distance_between(monsters[i].location, location) > 2 )
+						{
 							command = chase_player(monsters[i], location);
+						}
 						else if ( rand() % 3 > 1 )
+						{
 							command = chase_player(monsters[i], location);
+						}
 						else
+						{
 							command = 'k';
+						}
 						if ( ! monster_moved(command, monsters[i], location, map) )
+						{
 							command = 'k';
+						}
 					}
 
-					if ( command == 'k' )
+					switch ( command )
 					{
-						int damage_on_player = monster_attack(monsters[i], player, location);
-						lines[1] = " Make " + itoa(damage_on_player,'u') + " point of damage on you.";
-						lines[2] = " Press ENTER to continue.";
-						default_page_battle(player, map, location);
-						text_interface( format_lines(lines[0], lines[1], lines[2]) );
-						input();
-					}
-					else if ( command == 'w' || command == 'a' || command == 's' || command == 'd')
-					{
-						int x_1 = monsters[i].location.x  - (original_location.x - 3) + 1;
-						int y_1 = monsters[i].location.y  - (original_location.y - 2) + 1;
-						string relative_location_1 = "[" + itoa(x_1,'u') + "," + itoa(y_1,'u') + "]";
-						lines[1] = " Moved form " + relative_location + " to " + relative_location_1 + ".";
-						lines[2] = " Press ENTER to continue.";
-						default_page_battle(player, map, location);
-						text_interface( format_lines(lines[0], lines[1], lines[2]) );
-						input();
+						case 'w': case 'a': case 's': case 'd':
+						{
+							int x_1 = monsters[i].location.x  - (original_location.x - 3) + 1;
+							int y_1 = monsters[i].location.y  - (original_location.y - 2) + 1;
+							string relative_location_1 = "[" + itoa(x_1,'u') + "," + itoa(y_1,'u') + "]";
+
+							lines[1] = " Moved form " + relative_location + " to " + relative_location_1 + ".";
+							lines[2] = " Press ENTER to continue.";
+
+							default_page_battle(player, map, location);
+							text_interface( format_lines(lines[0], lines[1], lines[2]) );
+							input();
+							break;
+						}
+
+						case 'k':
+						{
+							int damage_on_player = monster_attack(monsters[i], player, location);
+
+							lines[1] = " Make " + itoa(damage_on_player,'u') + " point of damage on you.";
+							lines[2] = " Press ENTER to continue.";
+
+							default_page_battle(player, map, location);
+							text_interface( format_lines(lines[0], lines[1], lines[2]) );
+							input();
+							break;
+						}
 					}
 				}
 			}
-			lines[0] = ""; lines[1] = ""; lines[2] = "";
+			lines[0].clear(); 
+			lines[1].clear(); 
+			lines[2].clear();
 		}
 		round %= 3;
 	}

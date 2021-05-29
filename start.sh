@@ -6,7 +6,7 @@ boundary="====================================================="
 
 echo "$boundary"
 
-if [ -e ./exe/game ]
+if [ -e ./src/game ]
 then
 	echo "$0: Executable file was compiled"
 	chmod 700 ./exe/game
@@ -18,6 +18,7 @@ else
 	if [ -e game ]
 	then 
 		echo "$0: Compilation sucess"
+        sleep 1s
 	fi
 
 	make clean > /dev/null

@@ -23,6 +23,7 @@ main.o: main.cpp game_status.h interface.h survival.h explore.h structure.h
 
 game: main.o game_status.o interface.o survival.o explore.o battle.o story.o
 	g++ $(flag) -g $^ -o $@
+	rm -rf *.o
 
 clean:
 	rm -rf *.o
