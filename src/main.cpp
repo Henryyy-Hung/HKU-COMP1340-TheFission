@@ -51,7 +51,6 @@ int main(int argc, char *argv[])
 
 	bool skip = true;
 	bool test = (argc > 1)? true:false;
-	int warning_count = 0;							// times of warning for player
 
 	bool hold = true;
 	char command;
@@ -62,15 +61,15 @@ int main(int argc, char *argv[])
 		if ( hold == false || (game_over(player) && !restart(player)) )
 		{
 			lines[0] = " Quit sucessfully.";
-			lines[1] = "";
-			lines[2] = "";
-			for (int i = 0; i < 30 * 3; i++)
+			lines[1].clear();
+			lines[2].clear();
+			for (int i = 0; i < 120 * 2; i++)
 			{
 				refresh(100);
 				status_interface(player);
 				black_screen();
 				text_interface(format_lines(lines[0], lines[1], lines[2]));
-				fps(30);
+				fps(5);
 			}
 			break;
 		}
@@ -172,6 +171,7 @@ int main(int argc, char *argv[])
 					int min = 0, max = map_len - 1;
 
 					if ( ! test ) status_after_move(player);
+
 					map[x][y] = 0;
 
 					if ( ( max - x <= 20 || x - min <= 20 || max - y <= 20 || y - min <= 20 ) && map_len * 2 < pow(2, 13))
@@ -273,31 +273,40 @@ int main(int argc, char *argv[])
 							notice[0] = " You have encountered with a Maze.";
 							notice[1] = " The Exit is on top right and bottome left corner.";
 							notice[2] = " Press ENTER to continue.";
-							refresh(100);
-							status_interface(player);
-							logo_interface_maze();
-							text_interface( format_lines( notice[0], notice[1], notice[2]) );
-							input();
+							while ( command != '\n' )
+							{
+								refresh(100);
+								status_interface(player);
+								logo_interface_maze();
+								text_interface( format_lines( notice[0], notice[1], notice[2]) );
+								command = input();
+							}
 							maze(map,location);
 							break;
 					}
 				}
 
 			default:
-				if ( player.hr.quantity < 100 )
 				{
-					warning_count = 0;
-				}
-				else if ( player.hr.quantity == 100 && warning_count < 3 )	
-				{
-					string warning[3];
-					warning[0] = " Starving !!!";
-					warning[1] = " Please eat something to avoid drop in HP!!!";
-					warning[2] = " Press ENTER to continue.";
-					default_page(player, map, location);
-					text_interface( format_lines( warning[0], warning[1], warning[2] ) );
-					input();
-					warning_count++;
+					static int count = 0;
+					if ( player.hr.quantity < 100 )
+					{
+						count = 0;
+					}
+					else if ( player.hr.quantity == 100 && count < 1 )	
+					{
+						string warning[3];
+						warning[0] = " Starving !!!";
+						warning[1] = " Please eat something to avoid drop in HP!!!";
+						warning[2] = " Press ENTER to continue.";
+						while (command != '\n')
+						{
+							default_page(player, map, location);
+							text_interface( format_lines( warning[0], warning[1], warning[2] ) );
+							command = input();
+						}
+						count++;
+					}
 				}
 				break;
 		}

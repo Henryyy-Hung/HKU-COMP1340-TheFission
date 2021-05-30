@@ -291,19 +291,21 @@ void battle(Profile & player, int** map, Point & location)
 	char command;
 	string lines[3];
 
+	lines[0] = " You have encountered with Monsters !";
+	lines[1] = " Press ENTER to continue.";
+
+	while ( command != '\n' )
 	{
 		refresh(100);
 		status_interface(player);
 		logo_interface_fight();
-		lines[0] = " You have encountered with Monsters !";
-		lines[1] = " Press ENTER to continue.";
 		text_interface( format_lines(lines[0], lines[1], lines[2]) );
-		input();
+		command = input();
 	}
 
-	lines[0] = "";
-	lines[1] = "";
-	lines[2] = "";
+	lines[0].clear();
+	lines[1].clear();
+	lines[2].clear();
  
 	while (true)
 	{

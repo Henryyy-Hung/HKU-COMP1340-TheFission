@@ -42,14 +42,18 @@ const int Height = 15;					// Height of the main interface (e.g. map & manual)
 // Meaning: To decrease the difficulty of understanding the game and make the complicated data more intuitive to user
 void status_interface(const Profile & player)
 {
-	string lines[5];
+	static string lines[5];
 
-	lines[0] = TOP_LEFT;
-	for (int i = 0; i < Length; i++)
-		lines[0] += HORIZONTAL;
-	lines[0] += TOP_RIGHT;
+	if ( lines[0].empty() )
+	{
+		lines[0] = TOP_LEFT;
+		for (int i = 0; i < Length; i++)
+			lines[0] += HORIZONTAL;
+		lines[0] += TOP_RIGHT;
+	}
 
-	lines[1] = VERTICAL + format_string("", (Length - 13) / 2) + "-Time: ";
+	lines[1] = VERTICAL;
+	lines[1] += format_string("", (Length - 13) / 2) + "-Time: ";
 	lines[1] += ( itoa(player.time.hour, 'u').length() == 2 ) ? itoa(player.time.hour, 'u') : ( "0" + itoa(player.time.hour, 'u') );
 	lines[1] += ":";
 	lines[1] += ( itoa(player.time.min, 'u').length() == 2 ) ? itoa(player.time.min, 'u') : ( "0" + itoa(player.time.min, 'u') );
@@ -60,7 +64,6 @@ void status_interface(const Profile & player)
 	lines[2] += " Health Point: ";
 	for (int i = 1; i <= 10; i++) lines[2] +=  ( rint(player.hp.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
 	lines[2] += " " + format_string( itoa( (int) player.hp.quantity, 'u' ) + "%", 4 ) + format_string("", Length - 61);
-
 	lines[2] += "Stamina Point: ";
 	for (int i = 1; i <= 10; i++) lines[2] +=  ( rint(player.sp.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
 	lines[2] += " " + format_string( itoa( (int) player.sp.quantity, 'u' ) + "%", 4 ) + " ";
@@ -74,26 +77,18 @@ void status_interface(const Profile & player)
 	lines[3] += "Attack  Point: " + itoa(player.attack, 'u') + format_string("", Length - 52 - itoa(player.attack, 'u').length() );
 	lines[3] += VERTICAL;
 
-	lines[4] = BOTTOM_LEFT;
-	for (int i = 0; i < Length; i++)
-		lines[4] +=  HORIZONTAL;
-	lines[4] +=  BOTTOM_RIGHT;
+	if ( lines[4].empty() )
+	{
+		lines[4] = BOTTOM_LEFT;
+		for (int i = 0; i < Length; i++)
+			lines[4] +=  HORIZONTAL;
+		lines[4] +=  BOTTOM_RIGHT;
+	}
 
 	for (int i = 0; i < 5; i++)
 	{
 		cout << lines[i] << '\n';
 	}
-}
-
-bool is_english(string line)
-{
-	const int len = line.length();
-	for (int i = 0; i < len; i++)
-	{
-		if ( (int) line[i] < 0 || (int) line[i] > 127)
-			return false;
-	}
-	return true;
 }
 
 // Input: string sentence that want to be displayed in the "chatbox", which is text interface
@@ -102,7 +97,7 @@ bool is_english(string line)
 // Example: "Hello world" will be separate into "Hello" & "world", instead of "Hell" & "o world" when separating lines.
 void text_interface(string sentence)
 {
-	string line_1, line_2, line_3;
+	static string lines[5];
 
 	if ( is_english(sentence) )
 	{
@@ -112,61 +107,58 @@ void text_interface(string sentence)
 
 		pos1 = sentence.rfind(" ", Length);			// find the position of line separator(space) 
 		if (pos1 != -1)
-			line_1 = sentence.substr(0, pos1);		// if found, allocate string before the separator(space) to line 1 of output
+			lines[1] = sentence.substr(0, pos1);		// if found, allocate string before the separator(space) to line 1 of output
 		else
-			line_1 = "error";				// if the input sentence doesn't match with required format, output error
+			lines[1] = "error";				// if the input sentence doesn't match with required format, output error
 
 		pos2 = sentence.rfind(" ", pos1 + 1 + Length );		// same with above, but for line 2
 		if (pos1 != -1 && pos2 != -1)
-			line_2 = sentence.substr(pos1 + 1, pos2 - pos1 - 1);
+			lines[2] = sentence.substr(pos1 + 1, pos2 - pos1 - 1);
 		else
-			line_2 = "error";
+			lines[2] = "error";
 	
 		pos3 = sentence.rfind(" ", pos2 + 1 + Length );		// same with above, but for line 3
 		if (pos1 != -1 && pos2 != -1 && pos3 != -1)
-			line_3 = sentence.substr(pos2 + 1, pos3 - pos2 - 1);
+			lines[3] = sentence.substr(pos2 + 1, pos3 - pos2 - 1);
 		else
-			line_3 = "error";
+			lines[3] = "error";
+
+		for (int i = 1; i <= 3; i++)
+		{
+			lines[i] = format_string(lines[i], Length);
+		}
 	}
 	else
 	{
-		int line_len = Length / 2 * 3;
-		int len = sentence.length() / 3;
+		int len = Length / 2 * 3;
+		sentence = format_string_chinese(sentence, Length * 3);
 
-		for (int i = 0; i < sentence.length(); i++)
-		{
-			if ( sentence[i] >= 0 && sentence[i] <= 127 )
-			{
-				sentence.replace(i, 1, "　");
-			}
-		}
-
-		for (int i = 0; i < Length * 3 / 2 - len; i++)
-		{
-			sentence += "　";
-		}
-
-		line_1 = sentence.substr(0, line_len);
-		line_2 = sentence.substr(line_len, line_len);
-		line_3 = sentence.substr(line_len * 2, line_len);
+		lines[1] = sentence.substr(0, len);
+		lines[2] = sentence.substr(len, len);
+		lines[3] = sentence.substr(len * 2, len);
 	}
 
+	if ( lines[0].empty() )
 	{
-		cout << TOP_LEFT;					// print the upper boundary
+		lines[0] = TOP_LEFT;					// print the upper boundary
 		for (int i = 0; i < Length; i++)
-			cout << HORIZONTAL;
-		cout << TOP_RIGHT << '\n';
-
-		cout << left;						// print output lines
-		cout << VERTICAL << setw(Length) << line_1 << VERTICAL << '\n';	
-		cout << VERTICAL << setw(Length) << line_2 << VERTICAL << '\n';
-		cout << VERTICAL << setw(Length) << line_3 << VERTICAL << '\n';
-
-		cout << BOTTOM_LEFT;					// print the lower boundary
-		for (int i = 0; i < Length; i++)
-				cout << HORIZONTAL;
-		cout << BOTTOM_RIGHT << '\n';
+			lines[0] += HORIZONTAL;
+		lines[0] += TOP_RIGHT;
 	}
+	if ( lines[4].empty() )
+	{
+		lines[4] = BOTTOM_LEFT;
+		for (int i = 0; i < Length; i++)
+			lines[4] += HORIZONTAL;
+		lines[4] += BOTTOM_RIGHT;
+	}
+
+	cout << lines[0] << '\n';
+	for (int i = 1; i <= 3; i++)
+	{
+		cout << VERTICAL << lines[i] << VERTICAL << '\n';
+	}
+	cout << lines[4] << '\n';
 }
 
 // Input: integer which representing symbol on the map
@@ -299,17 +291,28 @@ void map_interface(int **map, Point location)
 	}
 }
 
+bool is_english(string line)
+{
+	const int len = line.length();
+	for (int i = 0; i < len; i++)
+	{
+		if ( (int) line[i] < 0 || (int) line[i] > 127)
+			return false;
+	}
+	return true;
+}
+
 // Input; a string with unknown length, a int shows desire length
 // Return: a string with desirable length new_len
 // Function: to format the string
-string format_string(string str, int new_len)
+string format_string(string str, const int & new_len)
 {
 	while ( str.length() < new_len )
 		str += " ";
 	return str.substr(0, new_len);
 }
 
-string format_string_chinese(string str, int new_len)
+string format_string_chinese(string str, const int & new_len)
 {
 	for (int i = 0; i < str.length(); i++)
 	{
@@ -318,7 +321,7 @@ string format_string_chinese(string str, int new_len)
 			str.replace(i, 1, "　");
 		}
 	}
-	for (int i = 0; str.length() / 3 < new_len / 2; i++)
+	for (int i = 0; str.length() < new_len / 2 * 3; i++)
 	{
 	       str += "　";
 	}
@@ -442,40 +445,53 @@ void navigator_interface(Profile player, Point destiny)
 	text_interface( format_lines( lines[0], lines[1], lines[2]) );
 }
 
-void main_interface(string lines[13])
+void main_interface(string content[13])
 {
 	const int len = Width - 8;
 
-	cout << "   " << ARC_TOP_LEFT;
-	for (int i = 0; i < len; i++)
-	{
-		cout << LIGHT_HORIZONTAL;
-	}
-	cout << ARC_TOP_RIGHT << '\n';
+	static string lines[Height];
+	int idx = 0;
 
+	if ( lines[idx].empty() )
+	{
+		lines[idx] = ARC_TOP_LEFT;
+		for (int i = 0; i < len; i++)
+		{
+			lines[idx] += LIGHT_HORIZONTAL;
+		}
+		lines[idx] += ARC_TOP_RIGHT;
+	}
+	idx++;
 	for (int i = 0; i < 13; i++)
 	{
-		if ( is_english(lines[i]) )
+		if ( is_english(content[i]) )
 		{
-			lines[i] = format_string(lines[i], len);
+			lines[idx] = LIGHT_VERTICAL;
+			lines[idx] += format_string(content[i], len);
+			lines[idx] += LIGHT_VERTICAL;
 		}
 		else
 		{
-			lines[i] = format_string_chinese(lines[i], len);
+			lines[idx] = LIGHT_VERTICAL;
+			lines[idx] += format_string_chinese(content[i], len);
+			lines[idx] += LIGHT_VERTICAL;
 		}
+		idx++;
+	}
+	if ( lines[idx].empty() )
+	{
+		lines[idx] = ARC_BOTTOM_LEFT;				
+		for (int i = 0; i < len; i++)
+		{
+			lines[idx] += LIGHT_HORIZONTAL;
+		}
+		lines[idx] += ARC_BOTTOM_RIGHT;
 	}
 
-	for (int i = 0; i < 13; i++)
+	for (int i = 0; i < Height; i++)
 	{
-		cout << "   " << LIGHT_VERTICAL << lines[i] << LIGHT_VERTICAL << '\n';
+		cout << "   " << lines[i] << '\n';
 	}
-
-	cout << "   " << ARC_BOTTOM_LEFT;				
-	for (int i = 0; i < len; i++)
-	{
-			cout << LIGHT_HORIZONTAL;
-	}
-	cout << ARC_BOTTOM_RIGHT << '\n';
 }
 
 // Input: void
@@ -649,21 +665,18 @@ void logo_interface_loss(void)
 void black_screen(void)
 {
 	static string lines[13];
-
-	static string word = "Author: Henryyy-------------";
+	string word = "不会吧不会吧？　　　　不会真的有人打不赢吧？　　　　";
 	static int num = 0;
-
-	while (word.length() < (12 * 3 + num + (Width - 8) * 3) )
+	while (word.length() < (12 * 3 + num*3 + (Width - 8) * 3) )
+	{
 		word += word;
-
+	}
 	for (int i = 0; i < 13; i++)
-		lines[i] = word.substr(i * 3 + num, (Width - 8) * 3);
-
-	num += 3;
-
+	{
+		lines[i] = word.substr(i * 3 + num*3, (Width - 8) * 3);
+	}
+	num++;
 	main_interface(lines);
-
-	return;
 }
 
 

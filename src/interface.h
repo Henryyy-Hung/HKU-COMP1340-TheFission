@@ -40,7 +40,9 @@ void text_interface(string);
 
 char input(void);
 
-string format_string(string, int);
+string format_string(string, const int &);
+
+string format_string_chinese(string, const int &);
 
 string format_lines(string, string, string);
 

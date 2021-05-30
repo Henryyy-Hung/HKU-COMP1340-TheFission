@@ -217,22 +217,30 @@ bool moved(Profile & player, int ** map, Point & location, char direction)
 {
 	int x = 0, y = 0;					// movement in x and y direction.
 
-	if ( direction == 'w' )					// with different command, move in different direction.
-		y += 1;
-	else if ( direction == 's' )
-		y -= 1;
-	else if ( direction == 'a' )
-		x -= 1;
-	else if ( direction == 'd' )
-		x += 1;
-	
-	if ( map[location.x + x][location.y + y]  >= 100 )	// check whether there is a obstacle
-		return false;					// indicate failed movement
-	else
+	switch ( direction )
 	{
-		player.location.change(x,y);			// change the virtual location
-		location.change(x,y);				// change the actual location
-		return true;					// indicate sucessful movement
+		case 'w':
+			y += 1;
+			break;
+		case 's':
+			y -= 1;
+			break;
+		case 'a':
+			x -= 1;
+			break;
+		case 'd':
+			x += 1;
+			break;
+	}
+
+	switch ( map[location.x+x][location.y+y] < 100 )
+	{
+		case true:
+			player.location.change(x, y);
+			location.change(x, y);
+			return true;
+		case false:
+			return false;
 	}
 }
 
@@ -307,9 +315,12 @@ bool bag_manipulation(Profile& player, char mode)
 				{
 					buff(player, items[index].type_2, atoi(items[index].effect_2.c_str()) );
 				}
+
 				lines[0] = " " + items[index].name + " is used.";				// show the thing has been used
 				lines[1] = " " + items[index].annotation;					// show the annotation of developer
+
 				player.item[index] -= 1;		// decrease the quantity of item by 1.
+
 				if ( mode != 'e' )			// if not in exploration mode, teminate the page.(allow 1 act only).
 				{	
 					hold = false;

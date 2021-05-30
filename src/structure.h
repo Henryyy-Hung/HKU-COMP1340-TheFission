@@ -7,19 +7,19 @@
 #define STRUCTURE_H
 
 #include <iostream>							// include all the header files that will be used in other files.
-#include <fstream>
-#include <stdio.h> 
+#include <stdio.h>
 #include <termio.h>
+#include <fstream>
+
 #include <unistd.h>
 
 #include <string>
 #include <vector>
 
-#include <cmath>
 #include <iomanip>
 #include <cstdlib>
+#include <cmath>
 #include <ctime>
-#include <climits>
 #include <algorithm>
 
 using namespace std;
