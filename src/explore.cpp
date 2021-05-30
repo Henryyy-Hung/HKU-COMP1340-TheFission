@@ -367,5 +367,17 @@ void detect(Profile player, int ** map, Point location)
 	input();
 }
 
+void herbination_base(int ** map, Point location)
+{
+	for (int i = location.x - 4; i <= location.x + 4; i++)
+		for (int j = location.y - 3; j <= location.y + 3; j++)
+			if ( i == location.x - 4 || i == location.x + 4 || j == location.y - 3 || j == location.y + 3)
+				map[i][j] = 999;
+			else
+				map[i][j] = 0;
+
+	map[location.x][location.y + 3] = 10;
+	map[location.x][location.y + 4] = 11;
+}
 	
 

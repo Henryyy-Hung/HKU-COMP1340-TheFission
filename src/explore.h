@@ -20,4 +20,6 @@ bool bag_manipulation(Profile&, char);
 
 void detect(Profile, int**, Point);
 
+void herbination_base(int **, Point);
+
 #endif

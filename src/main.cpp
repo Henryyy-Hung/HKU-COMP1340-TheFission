@@ -44,19 +44,8 @@ int main(int argc, char *argv[])
 
 	map_generator(map, map_len);						// generate map with random distribution of buildings and events
 
-	for (int i = location.x - 4; i <= location.x + 4; i++)
-		for (int j = location.y - 3; j <= location.y + 3; j++)
-		{
-			if ( i == location.x - 4 || i == location.x + 4 )
-				map[i][j] = 999;
-			else if ( j == location.y - 3 || j == location.y + 3)
-				map[i][j] = 999;
-			else
-				map[i][j] = 0;
-			if ( i == location.x && j == location.y + 3 )
-				map[i][j] = 10;
-		}
-	map[location.x][location.y + 4] = 11;
+	if ( player.attack == 15 )
+		herbination_base(map, location);
 
 	Node * story = initialize_story();					// bulld the story line and return the head of divergent linked list
 	Point destiny = initialize_destiny(player, story);			// the location that trigger out story
@@ -75,13 +64,13 @@ int main(int argc, char *argv[])
 			lines[0] = " Quit sucessfully.";
 			lines[1].clear();
 			lines[2].clear();
-			for (int i = 0; i < 120 * 2; i++)
+			for (int i = 0; i < 60 * 1.2; i++)
 			{
 				refresh(100);
 				status_interface(player);
 				black_screen();
 				text_interface(format_lines(lines[0], lines[1], lines[2]));
-				fps(5);
+				fps(60);
 			}
 			break;
 		}
@@ -276,6 +265,7 @@ int main(int argc, char *argv[])
 
 						case 10: case 99:
 							if ( test ) break;
+							save(player);
 							battle(player, map, location);
 							break;
 
@@ -389,8 +379,8 @@ void log_in_page(Profile & player)
 		refresh(100);
 		status_interface(player);
 		logo_interface_fission();
-		text_interface(format_lines(lines[0], lines[1], lines[2]));
-		fps(60);
+		text_interface(format_lines(lines[0], " Loading...", ""));
+		fps(90);
 	}
 
 	while (true)

@@ -525,8 +525,6 @@ void logo_interface_fission(void)
 {
 	string lines[13];
 
-	static string filling = format_string("", Width - 8);
-
 	lines[0] = " ";
 	lines[1] = " ";
 	lines[2] = "    /$$$$$$$$ /$$                    /$$ ";
@@ -541,9 +539,9 @@ void logo_interface_fission(void)
 	lines[11] = "";
 	lines[12] = "";
 
+	static string filling = format_string("", Width - 8);
 	for (int i = 0; i < 13; i++)
 		lines[i] = filling + lines[i];
-
 	filling = filling.substr(0, filling.length() - 1);
 
 	main_interface(lines);
@@ -602,21 +600,38 @@ void logo_interface_maze(void)
 // Function: print logo "story" in the main interface
 void logo_interface_story(void)
 {
-	string lines[13];
+	static string lines[13];
 
-	lines[0] = "";
-	lines[1] = "        /$$$$$$   /$$                                  ";
-	lines[2] = "       /$$__  $$ | $$                                  ";
-	lines[3] = "      | $$  \\__//$$$$$$    /$$$$$$   /$$$$$$  /$$   /$$";
-	lines[4] = "      |  $$$$$$|_  $$_/   /$$__  $$ /$$__  $$| $$  | $$";
-	lines[5] = "       \\____  $$ | $$    | $$  \\ $$| $$  \\__/| $$  | $$";
-	lines[6] = "       /$$  \\ $$ | $$ /$$| $$  | $$| $$      | $$  | $$";
-	lines[7] = "      |  $$$$$$/ |  $$$$/|  $$$$$$/| $$      |  $$$$$$$";
-	lines[8] = "       \\______/   \\___/   \\______/ |__/       \\____  $$";
-	lines[9] = "                                              /$$  | $$";
-	lines[10] = "                                             |  $$$$$$/";
-	lines[11] = "                                              \\______/ ";
-	lines[12] = "";
+	static int count = -1;
+
+	if ( count++ == -1 )
+	{
+		lines[0] = "";
+		lines[1] = "        /$$$$$$   /$$                                  ";
+		lines[2] = "       /$$__  $$ | $$                                  ";
+		lines[3] = "      | $$  \\__//$$$$$$    /$$$$$$   /$$$$$$  /$$   /$$";
+		lines[4] = "      |  $$$$$$|_  $$_/   /$$__  $$ /$$__  $$| $$  | $$";
+		lines[5] = "       \\____  $$ | $$    | $$  \\ $$| $$  \\__/| $$  | $$";
+		lines[6] = "       /$$  \\ $$ | $$ /$$| $$  | $$| $$      | $$  | $$";
+		lines[7] = "      |  $$$$$$/ |  $$$$/|  $$$$$$/| $$      |  $$$$$$$";
+		lines[8] = "       \\______/   \\___/   \\______/ |__/       \\____  $$";
+		lines[9] = "                                              /$$  | $$";
+		lines[10] = "                                             |  $$$$$$/";
+		lines[11] = "                                              \\______/ ";
+		lines[12] = "";
+		count++;
+	}
+
+
+	string temp = lines[12];
+	for (int i = 12; i > 0; i--)
+		lines[i] = lines[i-1];
+	lines[0] = temp;
+	
+	//	string temp = lines[0];
+	//	for (int i = 0; i < 13; i++)
+	//		lines[i] = lines[i+1];
+	//	lines[12] = temp;
 
 	main_interface(lines);	
 }
@@ -671,8 +686,8 @@ void logo_interface_loss(void)
 
 void black_screen(void)
 {
-	static string lines[13];
-	string word = "不会吧不会吧？　　　　不会真的有人打不赢吧？　　　　";
+	string lines[13];
+	static string word = "Author: Henry----------";
 	static int num = 0;
 	while (word.length() < (12 * 3 + num*3 + (Width - 8) * 3) )
 	{

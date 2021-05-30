@@ -297,7 +297,8 @@ void battle(Profile & player, int** map, Point & location)
 	string lines[3];
 
 	lines[0] = " You have encountered with Monsters !";
-	lines[1] = " Press ENTER to continue.";
+	lines[1] = " Game has been saved.";
+	lines[2] = " Press ENTER to continue.";
 
 	while ( command != '\n' )
 	{
