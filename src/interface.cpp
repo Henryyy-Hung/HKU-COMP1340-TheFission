@@ -40,68 +40,49 @@ const int Height = 15;					// Height of the main interface (e.g. map & manual)
 // Return: void 
 // Function: To visualize and display the current status (e.g. HP, SP, ATK) of player in a more intuitive and clear way (e.g. HP bar, status box)
 // Meaning: To decrease the difficulty of understanding the game and make the complicated data more intuitive to user
-void status_interface(Profile player)
+void status_interface(const Profile & player)
 {
-	cout << TOP_LEFT;								// print the upper boundary
+	string lines[5];
+
+	lines[0] = TOP_LEFT;
 	for (int i = 0; i < Length; i++)
-		cout << HORIZONTAL;
-	cout << TOP_RIGHT << '\n';
+		lines[0] += HORIZONTAL;
+	lines[0] += TOP_RIGHT;
 
-	int w = (Length - 13) / 2;							// distance from the boundary
+	lines[1] = VERTICAL + format_string("", (Length - 13) / 2) + "-Time: ";
+	lines[1] += ( itoa(player.time.hour, 'u').length() == 2 ) ? itoa(player.time.hour, 'u') : ( "0" + itoa(player.time.hour, 'u') );
+	lines[1] += ":";
+	lines[1] += ( itoa(player.time.min, 'u').length() == 2 ) ? itoa(player.time.min, 'u') : ( "0" + itoa(player.time.min, 'u') );
+	lines[1] += "-" + format_string("", (Length - 13) / 2 + ( (Length % 2 == 1) ? 0 : 1 ) );
+	lines[1] += VERTICAL;
 
-	cout << VERTICAL								// print left boundary
-		<< setw(w) << ""
-		<< "-Time: "
-		<< right << setfill('0')						// set the format of time to be "00:00"
-		<< setw(2) << player.time.hour						// print time
-		<< ":"
-		<< setw(2) << player.time.min
-		<< "-"
-		<< setfill(' ')								// set back the fill char to be ' '
-		<< setw( w + ( (Length % 2 == 1)? 0:1 ) ) << ""				// adjust width according to Length	
-		<< VERTICAL << '\n';							// print right boundary
+	lines[2] = VERTICAL;
+	lines[2] += " Health Point: ";
+	for (int i = 1; i <= 10; i++) lines[2] +=  ( rint(player.hp.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
+	lines[2] += " " + format_string( itoa( (int) player.hp.quantity, 'u' ) + "%", 4 ) + format_string("", Length - 61);
 
-	cout << setfill(' ') << right;
+	lines[2] += "Stamina Point: ";
+	for (int i = 1; i <= 10; i++) lines[2] +=  ( rint(player.sp.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
+	lines[2] += " " + format_string( itoa( (int) player.sp.quantity, 'u' ) + "%", 4 ) + " ";
+	lines[2] += VERTICAL;
 
-	cout << VERTICAL << " Health Point: ";						// print the left boundary and identifer of status
-	int hp = (int) rint(player.hp.quantity / 10);					// no. of grid of "health point bar" ( by round off)
-	for (int i = 0; i < hp; i++)							// print the remaining health point grid in a bar
-		cout << BLACK_SQUARE;
-	for (int i = 0; i < 10 - hp; i++)						// print the lost health point grid in a bar
-		cout << WHITE_SQUARE;
-	cout << " " 
-		<< setw(3) << (int) player.hp.quantity << "%" 
-		<< setw(Length - 61) << "";						// print percentage of remining health point and adjust width
+	lines[3] = VERTICAL;
+	lines[3] += " Hunger Point: ";
+	for (int i = 1; i <= 10; i++) lines[3] +=  ( rint(player.hr.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
+	lines[3] += " " + format_string( itoa( (int) player.hr.quantity, 'u' ) + "%", 4 ) + format_string("", Length - 61);
 
-	cout << "Stamina Point: ";							// same as above, but for stamina point
-	int sp = (int) rint(player.sp.quantity / 10);
-	for (int i = 0; i < sp; i++)
-		cout << BLACK_SQUARE;
-	for (int i = 0; i < 10 - sp; i++)
-		cout << WHITE_SQUARE;
-	cout << " "
-		<< setw(3) << (int) player.sp.quantity << "%" 
-		<< " " << VERTICAL << '\n';
+	lines[3] += "Attack  Point: " + itoa(player.attack, 'u') + format_string("", Length - 52 - itoa(player.attack, 'u').length() );
+	lines[3] += VERTICAL;
 
-	cout << VERTICAL << " Hunger Point: ";						// same as above, but for hunger point
-	int hr = (int) rint(player.hr.quantity / 10);
-	for (int i = 0; i < hr; i++)
-		cout << BLACK_SQUARE;
-	for (int i = 0; i < 10 - hr; i++)
-		cout << WHITE_SQUARE;
-	cout << " " 
-		<< setw(3) << (int) player.hr.quantity << "%" 
-		<< setw(Length - 61) << "";
-
-	cout << "Attack  Point: "							// print the attack point in status interface
-		<< left << setw( Length - 52 )
-		<< player.attack
-		<< VERTICAL << '\n';
-
-	cout << BOTTOM_LEFT;								// print the lower boundary
+	lines[4] = BOTTOM_LEFT;
 	for (int i = 0; i < Length; i++)
-		cout << HORIZONTAL;
-	cout << BOTTOM_RIGHT << '\n';
+		lines[4] +=  HORIZONTAL;
+	lines[4] +=  BOTTOM_RIGHT;
+
+	for (int i = 0; i < 5; i++)
+	{
+		cout << lines[i] << '\n';
+	}
 }
 
 bool is_english(string line)
@@ -327,6 +308,22 @@ string format_string(string str, int new_len)
 		str += " ";
 	return str.substr(0, new_len);
 }
+
+string format_string_chinese(string str, int new_len)
+{
+	for (int i = 0; i < str.length(); i++)
+	{
+		if ( str[i] >= 0 && str[i] <= 127)
+		{
+			str.replace(i, 1, "　");
+		}
+	}
+	for (int i = 0; str.length() / 3 < new_len / 2; i++)
+	{
+	       str += "　";
+	}
+	return str.substr(0, new_len / 2 * 3);
+}
 	
 
 // Input: a string that with unkonwn length
@@ -335,38 +332,13 @@ string format_string(string str, int new_len)
 // Meaning: sub-function of format_lines()
 string format_line(string line)
 {
-	bool english = true;
-	int len = line.length();						// store the initial length of sentence
-
-	for (int i = 0; i < len; i++)						// scan the line to see whether there is chinese
-	{
-		if ((int)line[i] < 0 || (int)line[i] > 127)
-		{
-			english = false;
-			break;
-		}
-	}
-
-	if (english)
+	if (is_english(line))
 	{
 		line = format_string(line, Length) + " ";
 	}
 	else
 	{
-		for (int i = 0; i < line.length(); i++)
-		{
-			if ( line[i] >= 0 && line[i] <= 127)
-			{
-				line.replace(i, 1, "　");
-			}
-		}
-
-		line = line.substr(0, Length / 2 * 3);
-
-		for (int i = 0; line.length() / 3 < Length / 2; i++)
-		{
-		       line += "　";
-		}
+		line = format_string_chinese(line, Length);
 	}
 	
 	return line;
@@ -408,7 +380,7 @@ string format_grids(string g1, string g2, string g3, string g4)
 // Input: a integer, a char representing mode sign or unsign
 // Return: the string of the integer with "+" sign or not
 // Function: convert integer into string with sign and unsign format
-string itoa(int num, char mode)
+string itoa(const int & num, const char & mode)
 {
 	if (num == 0)
 		return "0";
@@ -483,7 +455,14 @@ void main_interface(string lines[13])
 
 	for (int i = 0; i < 13; i++)
 	{
-		lines[i] = format_string(lines[i], len);
+		if ( is_english(lines[i]) )
+		{
+			lines[i] = format_string(lines[i], len);
+		}
+		else
+		{
+			lines[i] = format_string_chinese(lines[i], len);
+		}
 	}
 
 	for (int i = 0; i < 13; i++)
@@ -669,17 +648,22 @@ void logo_interface_loss(void)
 
 void black_screen(void)
 {
-	string lines[13];
+	static string lines[13];
 
-	string word = "Author: Henryyy         ";
+	static string word = "Author: Henryyy-------------";
+	static int num = 0;
 
-	for (int i = 0; i < 10; i++)
+	while (word.length() < (12 * 3 + num + (Width - 8) * 3) )
 		word += word;
 
 	for (int i = 0; i < 13; i++)
-		lines[i] = word.substr(i * 3, Length);
+		lines[i] = word.substr(i * 3 + num, (Width - 8) * 3);
+
+	num += 3;
 
 	main_interface(lines);
+
+	return;
 }
 
 
@@ -709,6 +693,13 @@ void bag_interface(Item items[], int quantity[])
 	}
 	
 	main_interface(lines);
+}
+
+void fps(const int & number)
+{
+	int second = 1000000;
+	usleep(second/number);
+	return;
 }
 
 // Input: void

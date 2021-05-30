@@ -64,10 +64,14 @@ int main(int argc, char *argv[])
 			lines[0] = " Quit sucessfully.";
 			lines[1] = "";
 			lines[2] = "";
-			refresh(100);
-			status_interface(player);
-			black_screen();
-			text_interface(format_lines(lines[0], lines[1], lines[2]));
+			for (int i = 0; i < 30 * 3; i++)
+			{
+				refresh(100);
+				status_interface(player);
+				black_screen();
+				text_interface(format_lines(lines[0], lines[1], lines[2]));
+				fps(30);
+			}
 			break;
 		}
 		else if ( lines[0].empty() && lines[1].empty() && lines[2].empty() )

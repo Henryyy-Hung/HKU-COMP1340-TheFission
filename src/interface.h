@@ -10,7 +10,7 @@
 
 void refresh(int);
 
-void status_interface(Profile);
+void status_interface(const Profile &);
 
 void map_interface(int**, Point);
 
@@ -46,8 +46,10 @@ string format_lines(string, string, string);
 
 string format_grids(string, string, string, string);
 
-string itoa(int, char);
+string itoa(const int &,const char &);
 
 bool is_english(string);
+
+void fps(const int & number);
 
 #endif
