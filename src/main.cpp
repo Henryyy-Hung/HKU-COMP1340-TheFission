@@ -113,11 +113,11 @@ int main(int argc, char *argv[])
 				{
 					case 0:
 						lines[0] = " Game saved.";
-						lines[1] = " Press ENTER to continue.";
+						lines[1] = ANY_KEY;
 						break;
 					case 1:
 						lines[0] = " Save failed.";
-						lines[1] = " Press ENTER to continue.";
+						lines[1] = ANY_KEY;
 						break;
 				}
 				break;
@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
 				refresh(100);							
 				status_interface(player);					
 				manual_interface();						
-				text_interface(" Press ENTER to continue.");
+				text_interface( ANY_KEY );
 				input();
 				break;
 
@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
 			case 'r':
 				status_after_rest(player);
 				lines[0] = " You haved rested and recover a bit of HP and SP.";
-				lines[1] = " Press ENTER to continue.";
+				lines[1] = ANY_KEY;
 				break;
 
 			case 'w': case 'a': case 's': case 'd':
@@ -156,13 +156,13 @@ int main(int argc, char *argv[])
 				{
 					lines[0] = " Yours SP become 0.";
 					lines[1] = " Please rest to recover SP.";
-					lines[2] = " Press ENTER to continue.";
+					lines[2] = ANY_KEY;
 				}
 				else if ( ! moved(player, map, location, command) )
 				{
 					lines[0] = " Encountered with boundary.";
 					lines[1] = " Please move in another direction.";
-					lines[2] = " Press ENTER to continue.";
+					lines[2] = ANY_KEY;
 				}
 				else
 				{
@@ -214,7 +214,7 @@ int main(int argc, char *argv[])
 							lines[0] = " You encountered with a hospital.";
 							if ( randint > 50 )
 							{
-								lines[0] = " You have found nothing there.";
+								lines[1] = " You have found nothing there.";
 							}
 							else if ( randint > 25 )
 							{
@@ -274,7 +274,7 @@ int main(int argc, char *argv[])
 							string notice[3];
 							notice[0] = " You have encountered with a Maze.";
 							notice[1] = " The Exit is on top right and bottome left corner.";
-							notice[2] = " Press ENTER to continue.";
+							notice[2] = ENTER;
 							while ( command != '\n' )
 							{
 								refresh(100);
@@ -300,7 +300,7 @@ int main(int argc, char *argv[])
 						string warning[3];
 						warning[0] = " Starving !!!";
 						warning[1] = " Please eat something to avoid drop in HP!!!";
-						warning[2] = " Press ENTER to continue.";
+						warning[2] = ENTER;
 						while (command != '\n')
 						{
 							default_page(player, map, location);
@@ -314,25 +314,48 @@ int main(int argc, char *argv[])
 		}
 
 		for (int i = -1; i <= 1; i++)						// search whether there is story around the player (3 x 3)
+		{
 			for (int j = -1; j <= 1; j++)
 			{
 				Point nearby = player.location;
 				nearby.change(i, j);
+				string notice[3];
+				char confirm;
 				if (nearby == destiny)					// check the triggering position
 				{
-					int value = display_story(player, story);	// check the existance of story.txt and play story
-					if (value == 1)
+					switch ( display_story(player, story) )		// check the existance of story.txt and play story
 					{
-						lines[0] = " Please download the story.txt. ";
-						lines[1].clear();
-						lines[2].clear();
-					}
-					else if (value == 0)
-					{
-						skip = true;
+						case 0:
+							skip = true;
+							break;
+						case 1:
+							notice[0] = " Please download the story.txt. ";
+							notice[1] = ENTER;
+							notice[2].clear();
+							while ( confirm != '\n' )
+							{
+								refresh(100);
+								default_page(player, map, location);
+								text_interface(format_lines(notice[0], notice[1], notice[2]));
+								confirm = input();
+							}
+							break;
+						case 2:
+							notice[0] = " Please wait for the update from author.";
+							notice[1] = " It is difficult to write story ar.";
+							notice[2] = ENTER;
+							while ( confirm != '\n' )
+							{
+								refresh(100);
+								default_page(player, map, location);
+								text_interface(format_lines(notice[0], notice[1], notice[2]));
+								confirm = input();
+							}
+							break;
 					}
 				}
 			}
+		}
 	}
 
 	for (int column = 0; column < map_len; column++)				// release memory occupied by the 2D array "map"
@@ -401,14 +424,14 @@ void log_in_page(Profile & player)
 			hold = false;
 			lines[0] = " Manipulation sucess.";
 			lines[1] = " A new game is initialized.";
-			lines[2] = " Press ENTER to continue.";
+			lines[2] = ENTER;
 		}
 		else if ( command == 'l' && load(player) == 0 )	
 		{
 			hold = false;
 			lines[0] = " Load sucess.";
 			lines[1] = " The game will start from previous status.";
-			lines[2] = " Press ENTER to continue.";
+			lines[2] = ENTER;
 		}
 		else if ( command == 'l' )
 		{
@@ -452,13 +475,13 @@ bool restart(Profile & player)
 		{
 			hold = false;
 			lines[0] = " Load success.";
-			lines[1] = " Press ENTER to continue.";
+			lines[1] = ANY_KEY;
 			lines[2] = "";
 		}
 		else if ( command == '2' )
 		{
 			lines[0] = " Load failed.";
-			lines[1] = " Press ENTER to make another command.";
+			lines[1] = ANY_KEY;
 			lines[2] = "";
 		}
 		else if ( command == '1' )
@@ -466,7 +489,7 @@ bool restart(Profile & player)
 			hold = false;
 			initialize(player);
 			lines[0] = " A new game is ready.";
-			lines[1] = " Press ENTER to continue.";
+			lines[1] = ANY_KEY;
 			lines[2] = "";
 		}
 		else

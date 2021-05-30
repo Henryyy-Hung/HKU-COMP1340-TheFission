@@ -315,6 +315,7 @@ bool bag_manipulation(Profile& player, char mode)
 
 				lines[0] = " " + items[index].name + " is used.";				// show the thing has been used
 				lines[1] = " " + items[index].annotation;					// show the annotation of developer
+				lines[2] = ANY_KEY;
 
 				player.item[index] -= 1;		// decrease the quantity of item by 1.
 
@@ -326,7 +327,7 @@ bool bag_manipulation(Profile& player, char mode)
 			else						// if quantity is 0, notice the user.
 			{
 				lines[0] = " You don't have this item.";
-				lines[1] = " Press ENTER to continue.";
+				lines[1] = ANY_KEY;
 			}
 		}
 		default_page_b(player);					// show default page of bag interface
@@ -358,7 +359,7 @@ void detect(Profile player, int ** map, Point location)
 
 	lines[0] = " There are " + itoa(monster, 'u') + " monster is found around 3 x 3 grids.";
 	lines[1] = " Dangerous area has been labelled.";
-	lines[2] = " Press ENTER to continue.";
+	lines[2] = ANY_KEY;
 
 	refresh(100);
 	status_interface(player);

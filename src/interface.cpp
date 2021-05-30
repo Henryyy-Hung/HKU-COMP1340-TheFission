@@ -335,16 +335,13 @@ string format_string_chinese(string str, const int & new_len)
 // Meaning: sub-function of format_lines()
 string format_line(string line)
 {
-	if (is_english(line))
+	switch (is_english(line))
 	{
-		line = format_string(line, Length) + " ";
+		case true:
+			return format_string(line, Length) + " ";
+		case false:
+			return format_string_chinese(line, Length);
 	}
-	else
-	{
-		line = format_string_chinese(line, Length);
-	}
-	
-	return line;
 }
 
 // Input: 3 strings with unknown length
@@ -363,12 +360,15 @@ string format_lines(string l1, string l2, string l3)
 // Return: a string that are 1/4 of "standard_sentence"
 // Function: to format a string into a "column" of text inteface
 // Meaning: sub-function of format_grids()
-string format_grid(string grid)
+string format_grid(const string & grid)
 {
-	int len = Length / 4;
-	while ( grid.length() < len )
-		grid += " ";
-	return grid.substr(0, len);
+	switch ( is_english(grid) )
+	{
+		case true:
+			return format_string(grid, Length / 4);
+		case false:
+			return format_string_chinese(grid, Length / 4);
+	}
 }
 
 // Input: 4 stirng with unknown length
@@ -440,7 +440,7 @@ void navigator_interface(Profile player, Point destiny)
 
 	lines[0] = format_string(" Direction: " + direction, 30) + "Current: " + current_location;
 	lines[1] = format_string(" Distance:  " + distance, 30) + "Target:  " + target_location;
-	lines[2]  = " Press ENTER to continue.";
+	lines[2]  = ANY_KEY;
 
 	text_interface( format_lines( lines[0], lines[1], lines[2]) );
 }
@@ -623,11 +623,10 @@ void logo_interface_story(void)
 	}
 
 
-	string temp = lines[12];
-	for (int i = 12; i > 0; i--)
-		lines[i] = lines[i-1];
-	lines[0] = temp;
-	
+	//string temp = lines[12];
+	//for (int i = 12; i > 0; i--)
+	//	lines[i] = lines[i-1];
+	//lines[0] = temp;
 	//	string temp = lines[0];
 	//	for (int i = 0; i < 13; i++)
 	//		lines[i] = lines[i+1];

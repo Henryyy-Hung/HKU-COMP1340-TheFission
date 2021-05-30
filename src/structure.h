@@ -22,6 +22,9 @@
 #include <ctime>
 #include <algorithm>
 
+#define ANY_KEY " Press ANY KEY to continue."
+#define ENTER  " Press ENTER to continue."
+
 using namespace std;
 
 struct Point								// structure of a point on 2D surface (i.e. map)

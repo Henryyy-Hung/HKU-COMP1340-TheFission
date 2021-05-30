@@ -298,7 +298,7 @@ void battle(Profile & player, int** map, Point & location)
 
 	lines[0] = " You have encountered with Monsters !";
 	lines[1] = " Game has been saved.";
-	lines[2] = " Press ENTER to continue.";
+	lines[2] = ENTER;
 
 	while ( command != '\n' )
 	{
@@ -336,7 +336,7 @@ void battle(Profile & player, int** map, Point & location)
 		{
 			lines[0] = " Your HP drops to 0.";
 			lines[1] = " Game over.";
-			lines[2] = " Press ENTER to continue.";
+			lines[2] = ANY_KEY;
 			
 			refresh(100);
 			status_interface(player);
@@ -389,13 +389,13 @@ void battle(Profile & player, int** map, Point & location)
 				{
 					lines[0] = " Yours SP become 0.";
 					lines[1] = " Please use items to recover SP.";
-					lines[2] = " Press ENTER to continue.";
+					lines[2] = ANY_KEY;
 				}
 				else if ( ! moved(player, map, location, command) )
 				{
 					lines[0] = " Invalid move";
 					lines[1] = " Please move in another direction.";
-					lines[2] = " Press ENTER to continue.";
+					lines[2] = ANY_KEY;
 				}
 				else
 				{
@@ -403,7 +403,7 @@ void battle(Profile & player, int** map, Point & location)
 
 					status_after_move(player);
 					lines[0] = " You have moved 1 grid.";
-					lines[1] = " Press ENTER to continue.";
+					lines[1] = ANY_KEY;
 				}
 				break;
 			}
@@ -423,12 +423,12 @@ void battle(Profile & player, int** map, Point & location)
 				{
 					escaped = true;
 					lines[0] = " Escape suceed !";
-					lines[1] = " Press ENTER to continue.";
+					lines[1] = ANY_KEY;
 				}
 				else
 				{
 					lines[0] = " Escape failed !";
-					lines[1] = " Press ENTER to continue.";
+					lines[1] = ANY_KEY;
 				}
 				break;
 			}
@@ -467,7 +467,7 @@ void battle(Profile & player, int** map, Point & location)
 						lines[0] = " You have made " + itoa(atk, 'u') + " unit of damage on monster " + itoa(i+1, 'u');
 						lines[0] += " at " + relative_location;
 						lines[1]  = " The Health Point of monster drops from " + original_hp + " to " + final_hp + ".";
-						lines[2]  = " Press ENTER to continue.";
+						lines[2]  = ANY_KEY;
 
 						refresh(100);
 						default_page_battle(player, map, location);
@@ -481,7 +481,7 @@ void battle(Profile & player, int** map, Point & location)
 				{
 					lines[0] = " You are too far waya from enemy.";
 					lines[1] = " All attack failed.";
-					lines[2] = " Press ENTER to continue.";
+					lines[2] = ANY_KEY;
 				}				
 				else
 				{
@@ -550,7 +550,7 @@ void battle(Profile & player, int** map, Point & location)
 							string relative_location_1 = "[" + itoa(x_1,'u') + "," + itoa(y_1,'u') + "]";
 
 							lines[1] = " Moved form " + relative_location + " to " + relative_location_1 + ".";
-							lines[2] = " Press ENTER to continue.";
+							lines[2] = ANY_KEY;
 
 							default_page_battle(player, map, location);
 							text_interface( format_lines(lines[0], lines[1], lines[2]) );
@@ -563,7 +563,7 @@ void battle(Profile & player, int** map, Point & location)
 							int damage_on_player = monster_attack(monsters[i], player, location);
 
 							lines[1] = " Make " + itoa(damage_on_player,'u') + " point of damage on you.";
-							lines[2] = " Press ENTER to continue.";
+							lines[2] = ANY_KEY;
 
 							default_page_battle(player, map, location);
 							text_interface( format_lines(lines[0], lines[1], lines[2]) );
