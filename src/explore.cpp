@@ -59,8 +59,6 @@ void map_generator(int ** map, int  map_len)
 {
 	int min = 0, max = map_len - 1;
 
-	srand(time(NULL));					// set the random seed to be "random"
-
 	for (int i = 0; i < map_len; i++)
 	{
 		for (int j = 0; j < map_len; j++)		// iterate through all element of map
@@ -202,7 +200,6 @@ void maze(int** map, Point location)
 		}
 	}
 
-	srand(time(NULL));							// set the random seed for generating random maze
 	maze_generator(map, x_origin + 1, y_origin + 1);			// generate paths by breaking walls between nodes
 
 	map[x_origin][y_origin + 1] = path;					// set a oping in bottom-left corner of maze
@@ -360,7 +357,7 @@ void detect(Profile player, int ** map, Point location)
 			}
 
 	lines[0] = " There are " + itoa(monster, 'u') + " monster is found around 3 x 3 grids.";
-	lines[1] = " Safe area has been labelled.";
+	lines[1] = " Dangerous area has been labelled.";
 	lines[2] = " Press ENTER to continue.";
 
 	refresh(100);

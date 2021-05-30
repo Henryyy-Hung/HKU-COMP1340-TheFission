@@ -140,28 +140,33 @@ double distance_between(Point point_1, Point point_2)
 bool monster_moved(char command, Monster &monster, Point player, int** map)
 {
 	int x = 0, y = 0;
-
-	if ( command == 'w' )	
-		y += 1;
-	else if ( command == 's' )
-		y -= 1;
-	else if ( command == 'a' )
-		x -= 1;
-	else if ( command == 'd' )
-		x += 1;
-
 	int mx = monster.location.x, my = monster.location.y;
 
-	if ( map[mx + x][my + y] > 100 || ( mx + x == player.x && my + y == player.y) )
+	switch ( command )
 	{
-		return false;
+		case 'w':
+			y += 1;
+			break;
+		case 's':
+			y -= 1;
+			break;
+		case 'a':
+			x -= 1;
+			break;
+		case 'd':
+			x += 1;
+			break;
 	}
-	else
+
+	switch ( map[mx+x][my+y] < 100 && ( mx + x != player.x || my + y != player.y) )
 	{
-		map[monster.location.x][monster.location.y] = 0;				// label the original location on map as empty
-		monster.location.change(x,y);							// change monster's location
-		map[monster.location.x][monster.location.y] = (100 + monster.hp.quantity);	// label the new location as monster's hp
-		return true;
+		case true:
+			map[monster.location.x][monster.location.y] = 0;				// label the original location on map as empty
+			monster.location.change(x,y);							// change monster's location
+			map[monster.location.x][monster.location.y] = (100 + monster.hp.quantity);	// label the new location as monster's hp
+			return true;
+		case false:
+			return false;
 	}
 }
 

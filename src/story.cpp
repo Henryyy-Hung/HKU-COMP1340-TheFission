@@ -37,8 +37,6 @@ void extend_list(Node * &head, Node * &tail, int start, int stop)
 {
 	static Point location = {0, 0};
 
-	srand(0);
-
 	for (int i = start; i < stop; i++)
 	{
 		int id = i;

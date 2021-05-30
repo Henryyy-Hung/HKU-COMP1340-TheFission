@@ -29,6 +29,8 @@ bool restart(Profile &);
 
 int main(int argc, char *argv[])
 {
+	srand(2021);
+
 	Profile player;								// create a profile for player (record players data)
 	initialize(player);							// initialize the profile of player (set default values)
 	log_in_page(player);							// initialize the profile of player according to his command
@@ -41,10 +43,20 @@ int main(int argc, char *argv[])
 		map[row] = new int [map_len];					// map size = map_len * map_len
 
 	map_generator(map, map_len);						// generate map with random distribution of buildings and events
-	for (int i = location.x - 2; i <= location.x + 2; i++)
-		for (int j = location.y - 2; j <= location.y + 2; j++)
-			if ( map[i][j] >= 10 )
-				map[i][j] = 0;					// set the spawn point to be safe
+
+	for (int i = location.x - 4; i <= location.x + 4; i++)
+		for (int j = location.y - 3; j <= location.y + 3; j++)
+		{
+			if ( i == location.x - 4 || i == location.x + 4 )
+				map[i][j] = 999;
+			else if ( j == location.y - 3 || j == location.y + 3)
+				map[i][j] = 999;
+			else
+				map[i][j] = 0;
+			if ( i == location.x && j == location.y + 3 )
+				map[i][j] = 10;
+		}
+	map[location.x][location.y + 4] = 11;
 
 	Node * story = initialize_story();					// bulld the story line and return the head of divergent linked list
 	Point destiny = initialize_destiny(player, story);			// the location that trigger out story
@@ -372,6 +384,15 @@ void log_in_page(Profile & player)
 
 	bool hold = true;
 
+	for (int i = 0; i <= 62; i++)
+	{
+		refresh(100);
+		status_interface(player);
+		logo_interface_fission();
+		text_interface(format_lines(lines[0], lines[1], lines[2]));
+		fps(60);
+	}
+
 	while (true)
 	{
 		refresh(100);
@@ -382,7 +403,8 @@ void log_in_page(Profile & player)
 
 		if ( ! hold )
 		{
-			break;
+			if (command == '\n')
+				break;
 		}
 		else if ( command == 'n' )				
 		{

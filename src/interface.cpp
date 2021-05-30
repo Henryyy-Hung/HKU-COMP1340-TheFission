@@ -525,6 +525,8 @@ void logo_interface_fission(void)
 {
 	string lines[13];
 
+	static string filling = format_string("", Width - 8);
+
 	lines[0] = " ";
 	lines[1] = " ";
 	lines[2] = "    /$$$$$$$$ /$$                    /$$ ";
@@ -538,6 +540,11 @@ void logo_interface_fission(void)
 	lines[10] = "";
 	lines[11] = "";
 	lines[12] = "";
+
+	for (int i = 0; i < 13; i++)
+		lines[i] = filling + lines[i];
+
+	filling = filling.substr(0, filling.length() - 1);
 
 	main_interface(lines);
 }

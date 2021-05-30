@@ -13,7 +13,6 @@ const double ratio = 15 / difficulty;
 // Function: update both time and status of player
 double update_status(Profile& player)
 {
-	srand(time(NULL));
 	double time_passed = rand() % 60;
 	player.time.change(time_passed);
 
