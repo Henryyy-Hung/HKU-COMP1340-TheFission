@@ -296,7 +296,7 @@ void battle(Profile & player, int** map, Point & location)
 	char command;
 	string lines[3];
 
-	lines[0] = "　你遇到了怪物！！！";
+	lines[0] = "　你遇到了怪物！！！战斗还是逃跑呢？";
 	lines[1] = "　游戏已经自动保存";
 	lines[2] = ENTER;
 
@@ -464,7 +464,8 @@ void battle(Profile & player, int** map, Point & location)
 					
 						string final_hp = itoa(monsters[i].hp.quantity, 'u');
 
-						lines[0] = "　你对怪物" + itoa(i+1,'u') + relative_location + "造成了" + itoa(atk, 'u') + "点伤害";
+						lines[0] = "　你对身处坐标" + relative_location + "的怪物" + itoa(i+1, 'u') + "号";
+						lines[0] +=  "造成了" + itoa(atk, 'u') + "点伤害";
 						lines[1] = "　怪物的血量从" + original_hp + "跌落至" + final_hp + ".";
 						lines[2] = ANY_KEY;
 
@@ -514,8 +515,8 @@ void battle(Profile & player, int** map, Point & location)
 					string column[4];
 					column[0] = "　怪物：" + itoa(i + 1, 'u');
 					column[1] = "攻击力：" + itoa(monsters[i].attack, 'u');
-					column[2] = "位置：" + relative_location;
-					column[3] = "　回合：" + itoa(j+1, 'u') + "/2";
+					column[2] = "坐标：" + relative_location;
+					column[3] = "　　回合：" + itoa(j+1, 'u') + "/2";
 
 					lines[0] = format_grids(column[0], column[1], column[2], column[3]);
 

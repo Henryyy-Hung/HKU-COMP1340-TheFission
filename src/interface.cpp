@@ -172,15 +172,15 @@ string map_convertor(const int & symbol)
 		case 0:						// empty grid's content
 			return "  ";
 		case 1:						// unknown building's content
-			return "UB";
+			return "房";
 		case 2:						// lake's content
-			return "WT";
+			return "水";
 		case 3:						//Hospital's content
-			return "HP";
+			return "医";
 		case 4:						// Food shop's content
-			return "FD";
+			return "食";
 		case 5:						// Weapon shop's content
-			return "AT";
+			return "武";
 		case 99:					// DANGER sign
 			return "\xE2\x9C\x98 ";
 		case 998: case 999:				// wall
@@ -418,8 +418,8 @@ string itoa(const int & num, const char & mode)
 
 void navigator_interface(Profile player, Point destiny)
 {
-	string current_location = "[" + itoa(player.location.x,'u') + "," + itoa(player.location.y,'u') + "]";
-	string target_location = "[" + itoa(destiny.x,'u') + "," + itoa(destiny.y,'u') + "]";
+	string current_location = "[" + itoa(player.location.x,'u') + "，" + itoa(player.location.y,'u') + "]";
+	string target_location = "[" + itoa(destiny.x,'u') + "，" + itoa(destiny.y,'u') + "]";
 
 	int x = destiny.x - player.location.x;
 	int y = destiny.y - player.location.y;
@@ -712,7 +712,7 @@ void bag_interface(Item items[], int quantity[])
 	string lines[13];
 	int index = 0;
 
-	lines[index] = format_grids("物品名称", " 效果一", "效果二", "剩余数量");
+	lines[index] = format_grids("物品名称", "效果一", "效果二", "剩余数量");
 
 	for (int i = 0; i < 9; i++)								// iterate through items
 	{
@@ -721,8 +721,8 @@ void bag_interface(Item items[], int quantity[])
 		if ( i % 3 == 0 ) index++;
 
 		string output[4];
-		output[0] = itoa(i,'u') + "." + items[i].name;					// index and name of item
-		output[1] = items[i].type_1 + items[i].effect_1;			// type and effect of item
+		output[0] = itoa(i,'u') + "．" + items[i].name;					// index and name of item
+		output[1] = items[i].type_1 + items[i].effect_1;				// type and effect of item
 		output[2] = items[i].type_2 + items[i].effect_2;				// type 2 and effect 2 of item
 		output[3] = itoa(quantity[i],'u');						// quantity of item that player owns
 
