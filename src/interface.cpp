@@ -318,7 +318,7 @@ string format_string_chinese(string str, const int & new_len)
 	{
 		if ( str[i] >= 0 && str[i] <= 127)
 		{
-			str.replace(i, 1, "　");
+			str.replace(i, 1, translate_chinese(str[i]) );
 		}
 	}
 	for (int i = 0; str.length() < new_len / 2 * 3; i++)
@@ -353,7 +353,13 @@ string format_line(string line)
 // c (within the text interface)
 string format_lines(string l1, string l2, string l3)
 {
-	return format_line(l1) + format_line(l2) + format_line(l3);
+	switch ( is_english(l1) && is_english(l2) && is_english(l3) )
+	{
+		case true:
+			return format_line(l1) + format_line(l2) + format_line(l3);
+		case false:
+			return format_line(l1 + "　") + format_line(l2 + "　") + format_line(l3 + "　");
+	}
 }
 
 // Input: a string with unknown length
@@ -724,6 +730,206 @@ void bag_interface(Item items[], int quantity[])
 	main_interface(lines);
 }
 
+string translate_chinese(const char & ch)
+{
+	switch ( ch )
+	{
+		case 'A':
+			return "Ａ";
+		case 'B':
+			return "Ｂ";
+		case 'C':
+			return "Ｃ";
+		case 'D':
+			return "Ｄ";
+		case 'E':
+			return "Ｅ";
+		case 'F':
+			return "Ｆ";
+		case 'G':
+			return "Ｇ";
+		case 'H':
+			return "Ｈ";
+		case 'I':
+			return "Ｉ";
+		case 'J':
+			return "Ｊ";
+		case 'K':
+			return "Ｋ";
+		case 'L':
+			return "Ｌ";
+		case 'M':
+			return "Ｍ";
+		case 'N':
+			return "Ｎ";
+		case 'O':
+			return "Ｏ";
+		case 'P':
+			return "Ｐ";
+		case 'Q':
+			return "Ｑ";
+		case 'R':
+			return "Ｒ";
+		case 'S':
+			return "Ｓ";
+		case 'T':
+			return "Ｔ";
+		case 'U':
+			return "Ｕ";
+		case 'V':
+			return "Ｖ";
+		case 'W':
+			return "Ｗ";
+		case 'X':
+			return "Ｘ";
+		case 'Y':
+			return "Ｙ";
+		case 'Z':
+			return "Ｚ";
+		case 'a':
+			return "ａ";
+		case 'b':
+			return "ｂ";
+		case 'c':
+			return "ｃ";
+		case 'd':
+			return "ｄ";
+		case 'e':
+			return "ｅ";
+		case 'f':
+			return "ｆ";
+		case 'g':
+			return "ｇ";
+		case 'h':
+			return "ｈ";
+		case 'i':
+			return "ｉ";
+		case 'j':
+			return "ｊ";
+		case 'k':
+			return "ｋ";
+		case 'l':
+			return "ｌ";
+		case 'm':
+			return "ｍ";
+		case 'n':
+			return "ｎ";
+		case 'o':
+			return "ｏ";
+		case 'p':
+			return "ｐ";
+		case 'q':
+			return "ｑ";
+		case 'r':
+			return "ｒ";
+		case 's':
+			return "ｓ";
+		case 't':
+			return "ｔ";
+		case 'u':
+			return "ｕ";
+		case 'v':
+			return "ｖ";
+		case 'w':
+			return "ｗ";
+		case 'x':
+			return "ｘ";
+		case 'y':
+			return "ｙ";
+		case 'z':
+			return "ｚ";
+		case '0':
+			return "０";
+		case '1':
+			return "１";
+		case '2':
+			return "２";
+		case '3':
+			return "３";
+		case '4':
+			return "４";
+		case '5':
+			return "５";
+		case '6':
+			return "６";
+		case '7':
+			return "７";
+		case '8':
+			return "８";
+		case '9':
+			return "９";
+		case '!':
+			return "！";
+		case '@':
+			return "＠";
+		case '#':
+			return "＃";
+		case '$':
+			return "￥";
+		case '%':
+			return "％";
+		case '^':
+			return "＾";
+		case '&':
+			return "＆";
+		case '*':
+			return "＊";
+		case '(':
+			return "（";
+		case ')':
+			return "）";
+		case '_':
+			return "＿";
+		case '=':
+			return "＝";
+		case '+':
+			return "＋";
+		case '-':
+			return "－";
+		case '~':
+			return "～";
+		case '`':
+			return "｀";
+		case '{':
+			return "｛";
+		case '}':
+			return "｝";
+		case '[':
+			return "【";
+		case ']':
+			return "】";
+		case '\\':
+			return "＼";
+		case '|':
+			return "｜";
+		case ':':
+			return "：";
+		case ';':
+			return "；";
+		case '"':
+			return "＂";
+		case '\'':
+			return "＇";
+		case '<':
+			return "＜";
+		case '>':
+			return "＞";
+		case ',':
+			return "，";
+		case '.':
+			return "．";
+		case '?':
+			return "？";
+		case '/':
+			return "／";
+		case ' ':
+			return "　";
+		default:
+			return "　";
+	}
+}
+					
+			
 void fps(const int & number)
 {
 	int second = 1000000;

@@ -54,4 +54,6 @@ bool is_english(string);
 
 void fps(const int & number);
 
+string translate_chinese(const char &);
+
 #endif
