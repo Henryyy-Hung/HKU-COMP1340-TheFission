@@ -266,9 +266,9 @@ void default_text_battle(int round)
 {
 	string lines[3];
 
-	lines[0] = format_grids(" Command list:", "", "", " Your round: " + itoa(round + 1, 'u') + "/2" );
-	lines[1] = format_grids(" Move: W A S D", "", " Attack: K", "");
-	lines[2] = format_grids(" Bag: B", "", " Escape: E", "");
+	lines[0] = format_grids("　操作指南：", "", "", "回合：" + itoa(round + 1, 'u') + "/2" );
+	lines[1] = format_grids("　移动：ＷＡＳＤ", "", "攻击：Ｋ", "");
+	lines[2] = format_grids("　背包：Ｂ", "", "逃跑：Ｅ", "");
 
 	text_interface( format_lines( lines[0], lines[1], lines[2]) );
 }
@@ -296,8 +296,8 @@ void battle(Profile & player, int** map, Point & location)
 	char command;
 	string lines[3];
 
-	lines[0] = " You have encountered with Monsters !";
-	lines[1] = " Game has been saved.";
+	lines[0] = "　你遇到了怪物！！！";
+	lines[1] = "　游戏已经自动保存";
 	lines[2] = ENTER;
 
 	while ( command != '\n' )
@@ -320,9 +320,9 @@ void battle(Profile & player, int** map, Point & location)
 			int trophy = generate_trophy(monster_num);
 			player.item[2] += trophy;
 
-			lines[0] = " You have killed " + itoa(monster_num,'u') + " monsters, and get meat x " + itoa(trophy,'u') + ".";
-			lines[1] = " Now, you know where the meat comes from.";
-			lines[2] = " The meat taste delicious right? They were once a man......";
+			lines[0] = "　你击杀了" + itoa(monster_num,'u') + "只怪物，并得到了" + itoa(trophy,'u') + "块纯净肉．";
+			lines[1] = "　现在，你知道你吃的肉是从哪里来的了吧～";
+			lines[2] = "　很好吃对吧．．．他们曾经也是人啊．．．";
 	
 			refresh(100);
 			status_interface(player);
@@ -334,8 +334,8 @@ void battle(Profile & player, int** map, Point & location)
 		}
 		else if ( game_over(player) )
 		{
-			lines[0] = " Your HP drops to 0.";
-			lines[1] = " Game over.";
+			lines[0] = "　你的血量归零了～";
+			lines[1] = "　凉凉";
 			lines[2] = ANY_KEY;
 			
 			refresh(100);
@@ -387,14 +387,14 @@ void battle(Profile & player, int** map, Point & location)
 			{
 				if ( player.sp.quantity == 0 )
 				{
-					lines[0] = " Yours SP become 0.";
-					lines[1] = " Please use items to recover SP.";
+					lines[0] = "　你的ＳＰ为零";
+					lines[1] = "　请是用道具恢复ＳＰ";
 					lines[2] = ANY_KEY;
 				}
 				else if ( ! moved(player, map, location, command) )
 				{
-					lines[0] = " Invalid move";
-					lines[1] = " Please move in another direction.";
+					lines[0] = "　前方似乎有障碍物";
+					lines[1] = "　请朝其他方向移动";
 					lines[2] = ANY_KEY;
 				}
 				else
@@ -402,7 +402,7 @@ void battle(Profile & player, int** map, Point & location)
 					round++;
 
 					status_after_move(player);
-					lines[0] = " You have moved 1 grid.";
+					lines[0] = "　你移动了一格";
 					lines[1] = ANY_KEY;
 				}
 				break;
@@ -422,12 +422,12 @@ void battle(Profile & player, int** map, Point & location)
 				if ( (rand() % 100 > 50 ) )
 				{
 					escaped = true;
-					lines[0] = " Escape suceed !";
+					lines[0] = "　逃跑成功！";
 					lines[1] = ANY_KEY;
 				}
 				else
 				{
-					lines[0] = " Escape failed !";
+					lines[0] = "　逃跑失败！";
 					lines[1] = ANY_KEY;
 				}
 				break;
@@ -464,10 +464,9 @@ void battle(Profile & player, int** map, Point & location)
 					
 						string final_hp = itoa(monsters[i].hp.quantity, 'u');
 
-						lines[0] = " You have made " + itoa(atk, 'u') + " unit of damage on monster " + itoa(i+1, 'u');
-						lines[0] += " at " + relative_location;
-						lines[1]  = " The Health Point of monster drops from " + original_hp + " to " + final_hp + ".";
-						lines[2]  = ANY_KEY;
+						lines[0] = "　你对怪物" + itoa(i+1,'u') + relative_location + "造成了" + itoa(atk, 'u') + "点伤害";
+						lines[1] = "　怪物的血量从" + original_hp + "跌落至" + final_hp + ".";
+						lines[2] = ANY_KEY;
 
 						refresh(100);
 						default_page_battle(player, map, location);
@@ -479,8 +478,8 @@ void battle(Profile & player, int** map, Point & location)
 				}
 				if ( ! valid_attack )
 				{
-					lines[0] = " You are too far waya from enemy.";
-					lines[1] = " All attack failed.";
+					lines[0] = "　你离怪物太远了";
+					lines[1] = "　所有攻击都失败了";
 					lines[2] = ANY_KEY;
 				}				
 				else
@@ -513,10 +512,10 @@ void battle(Profile & player, int** map, Point & location)
 					string relative_location = "[" + itoa(x,'u') + "," + itoa(y,'u') + "]";
 
 					string column[4];
-					column[0] = " Monster: " + itoa(i + 1, 'u');
-					column[1] = " ATK: " + itoa(monsters[i].attack, 'u');
-					column[2] = " Location: " + relative_location;
-					column[3] = "    Round: (" + itoa(j+1, 'u') + "/2)";
+					column[0] = "　怪物：" + itoa(i + 1, 'u');
+					column[1] = "攻击力：" + itoa(monsters[i].attack, 'u');
+					column[2] = "位置：" + relative_location;
+					column[3] = "　回合：" + itoa(j+1, 'u') + "/2";
 
 					lines[0] = format_grids(column[0], column[1], column[2], column[3]);
 
@@ -549,7 +548,7 @@ void battle(Profile & player, int** map, Point & location)
 							int y_1 = monsters[i].location.y  - (original_location.y - 2) + 1;
 							string relative_location_1 = "[" + itoa(x_1,'u') + "," + itoa(y_1,'u') + "]";
 
-							lines[1] = " Moved form " + relative_location + " to " + relative_location_1 + ".";
+							lines[1] = "　从" + relative_location + "移动至" + relative_location_1 + ".";
 							lines[2] = ANY_KEY;
 
 							default_page_battle(player, map, location);
@@ -562,7 +561,7 @@ void battle(Profile & player, int** map, Point & location)
 						{
 							int damage_on_player = monster_attack(monsters[i], player, location);
 
-							lines[1] = " Make " + itoa(damage_on_player,'u') + " point of damage on you.";
+							lines[1] = "　对你造成了" + itoa(damage_on_player,'u') + "点伤害";
 							lines[2] = ANY_KEY;
 
 							default_page_battle(player, map, location);

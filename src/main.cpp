@@ -61,7 +61,7 @@ int main(int argc, char *argv[])
 	{
 		if ( hold == false || (game_over(player) && !restart(player)) )
 		{
-			lines[0] = " Quit sucessfully.";
+			lines[0] = "　退出成功";
 			lines[1].clear();
 			lines[2].clear();
 			for (int i = 0; i < 60 * 1.2; i++)
@@ -112,11 +112,11 @@ int main(int argc, char *argv[])
 				switch ( save(player) )
 				{
 					case 0:
-						lines[0] = " Game saved.";
+						lines[0] = "　游戏已存档";
 						lines[1] = ANY_KEY;
 						break;
 					case 1:
-						lines[0] = " Save failed.";
+						lines[0] = "　存档失败";
 						lines[1] = ANY_KEY;
 						break;
 				}
@@ -147,21 +147,21 @@ int main(int argc, char *argv[])
 
 			case 'r':
 				status_after_rest(player);
-				lines[0] = " You haved rested and recover a bit of HP and SP.";
+				lines[0] = "　休息完毕，已恢复少量ＨＰ及ＳＰ";
 				lines[1] = ANY_KEY;
 				break;
 
 			case 'w': case 'a': case 's': case 'd':
 				if ( player.sp.quantity == 0 )
 				{
-					lines[0] = " Yours SP become 0.";
-					lines[1] = " Please rest to recover SP.";
+					lines[0] = "　你的ＳＰ为０";
+					lines[1] = "　请休息或是用道具恢复ＳＰ";
 					lines[2] = ANY_KEY;
 				}
 				else if ( ! moved(player, map, location, command) )
 				{
-					lines[0] = " Encountered with boundary.";
-					lines[1] = " Please move in another direction.";
+					lines[0] = "　你似乎遇到了一些障碍物";
+					lines[1] = "　请朝别的方向移动";
 					lines[2] = ANY_KEY;
 				}
 				else
@@ -183,84 +183,84 @@ int main(int argc, char *argv[])
 					switch ( event )
 					{
 						case 1:
-							lines[0] = " You encountered with an Unkonwn Building.";
+							lines[0] = "　你探索了一栋未知建筑";
 							if ( randint <= 10 )
 							{
 								player.item[rand() % 9]++;
-								lines[1] = " It seems that you have found something?";
-								lines[2] = " Check your bag.";
+								lines[1] = "　你似乎发现了什么";
+								lines[2] = "　请检查你的背包";
 							}
 							else
 							{
-								lines[1] = " Your have found nothing there.";
+								lines[1] = "　然而你什么也没有找到";
 							}
 							break;
 						
 						case 2:
-							lines[0] = " You encountered with a water source.";
+							lines[0] = "　你探索了一处水源";
 							if ( randint <= 33 )
 							{
 								player.item[5]++;
-								lines[1] = " You got Pure Water x 1.";
+								lines[1] = "　你得到了一瓶纯净水";
 							}
 							else
 							{
 								player.item[7]++;
-								lines[1] = " You got Radiated Water x 1.";
+								lines[1] = "　你得到了一瓶辐射水";
 							}
 							break;
 
 						case 3:
-							lines[0] = " You encountered with a hospital.";
+							lines[0] = "　你探索了一所废弃医院";
 							if ( randint > 50 )
 							{
-								lines[1] = " You have found nothing there.";
+								lines[1] = "　然而你什么也没有找到";
 							}
 							else if ( randint > 25 )
 							{
 								player.item[8]++;				
-								lines[1] = " You got Iodophor x 1.";
+								lines[1] = "　你得到了一瓶碘伏";
 							}
 							else if ( randint > 10 )				
 							{
 								player.item[6]++;
-								lines[1] = " You got Adrenaline x 1.";
+								lines[1] = "　你得到了一瓶肾上腺素";
 							}
 							else if ( randint > 3 )					
 							{
 								player.item[1]++;
-								lines[1] = " You got Bondage x 1.";
+								lines[1] = "　你得到了一捆绷带";
 							}
 							else								
 							{
 								player.item[0]++;
-								lines[1] = " You got Unknown Potion x 1.";
+								lines[1] = "　你得到了一瓶未知药剂";
 							}
 							break;
 
 						case 4:
-							lines[0] = " You encountered with a food shop.";
+							lines[0] = "　你探索了一间食品商店";
 							if ( randint > 50 )						
 							{
 								player.item[4]++;
-								lines[1] = " You got Radiated Cake x 1.";
+								lines[1] = "　你得到了一块辐射小蛋糕";
 							}
 							else if ( randint > 20 )					
 							{
 								player.item[3]++;
-								lines[1] = " You got Radiated Meat x 1.";
+								lines[1] = "　你得到了一块辐射肉";
 							}
 							else						
 							{
 								player.item[2]++;
-								lines[1] = " You got Meat x 1.";
+								lines[1] = "　你得到了一块纯净肉";
 							}
 							break;
 
 						case 5:
 							player.attack++;
-							lines[0]  = " You encountered with a weapon shop.";
-							lines[1]  = " Your attack become " + itoa(player.attack, 'u') + " + 1.";
+							lines[0]  = "　你探索了一间武器商店";
+							lines[1]  = "　你的攻击力提升了１点";
 							break;
 
 						case 10: case 99:
@@ -272,8 +272,8 @@ int main(int argc, char *argv[])
 						case 11:
 							if ( test ) break;
 							string notice[3];
-							notice[0] = " You have encountered with a Maze.";
-							notice[1] = " The Exit is on top right and bottome left corner.";
+							notice[0] = "　你掉进了一处地下城废墟";
+							notice[1] = "　出口东北和西南方向";
 							notice[2] = ENTER;
 							while ( command != '\n' )
 							{
@@ -298,8 +298,8 @@ int main(int argc, char *argv[])
 					else if ( player.hr.quantity == 100 && count < 1 )	
 					{
 						string warning[3];
-						warning[0] = " Starving !!!";
-						warning[1] = " Please eat something to avoid drop in HP!!!";
+						warning[0] = "　极度饥饿状态！！！";
+						warning[1] = "　请尽快吃些东西，避免ＨＰ的下降！！！";
 						warning[2] = ENTER;
 						while (command != '\n')
 						{
@@ -320,7 +320,7 @@ int main(int argc, char *argv[])
 				Point nearby = player.location;
 				nearby.change(i, j);
 				string notice[3];
-				char confirm = '\0';
+				char confirm;
 				if (nearby == destiny)					// check the triggering position
 				{
 					switch ( display_story(player, story) )		// check the existance of story.txt and play story
@@ -329,7 +329,7 @@ int main(int argc, char *argv[])
 							skip = true;
 							break;
 						case 1:
-							notice[0] = " Please download the story.txt. ";
+							notice[0] = "　请下载ｓｔｏｒｙ．ｔｘｔ";
 							notice[1] = ENTER;
 							notice[2].clear();
 							while ( confirm != '\n' )
@@ -341,8 +341,8 @@ int main(int argc, char *argv[])
 							}
 							break;
 						case 2:
-							notice[0] = " Please wait for the update from author.";
-							notice[1] = " It is difficult to write story ar.";
+							notice[0] = "　请等待作者更新故事";
+							notice[1] = "　创作不易，多多支持";
 							notice[2] = ENTER;
 							while ( confirm != '\n' )
 							{
@@ -380,9 +380,9 @@ void default_text(void)
 {
 	string lines[3];
 
-	lines[0] = " Command list:";
-	lines[1] = format_grids( " Move: W A S D", " Rest:   R", " Bag:  B", " Navigator: N");
-	lines[2] = format_grids( " Detect: L"    , " Manual: M", " Save: Z", " Quit: !");
+	lines[0] = "　操作指南：";
+	lines[1] = format_grids( "　移动：ＷＡＳＤ", "　休息：Ｒ", "　背包：Ｂ", "　导航：Ｎ");
+	lines[2] = format_grids( "　侦查：Ｌ"     , "　手册：Ｍ", "　存档：Ｚ", "　退出：！");
 	
 	text_interface( format_lines(lines[0], lines[1], lines[2]) );
 }
@@ -391,9 +391,9 @@ void log_in_page(Profile & player)
 {
 	string lines[3];
 
-	lines[0] = " Welcome to the world of The Fission !";
-	lines[1] = " Press 'n' to start a new game.";
-	lines[2] = " Press 'l' to load previous profile.";
+	lines[0] = "　欢迎来到《裂变》";
+	lines[1] = "　开启新游戏请按ｎ";
+	lines[2] = "　加载存档请按ｌ";
 
 	bool hold = true;
 
@@ -402,7 +402,7 @@ void log_in_page(Profile & player)
 		refresh(100);
 		status_interface(player);
 		logo_interface_fission();
-		text_interface(format_lines(lines[0], " Loading...", ""));
+		text_interface(format_lines(lines[0], "　加载中．．．", ""));
 		fps(90);
 	}
 
@@ -422,24 +422,24 @@ void log_in_page(Profile & player)
 		else if ( command == 'n' )				
 		{
 			hold = false;
-			lines[0] = " Manipulation sucess.";
-			lines[1] = " A new game is initialized.";
+			lines[0] = "　初始化成功";
+			lines[1] = "　新游戏已载入";
 			lines[2] = ENTER;
 		}
 		else if ( command == 'l' && load(player) == 0 )	
 		{
 			hold = false;
-			lines[0] = " Load sucess.";
-			lines[1] = " The game will start from previous status.";
+			lines[0] = "　加载成功";
+			lines[1] = "　游戏将从存档点继续";
 			lines[2] = ENTER;
 		}
 		else if ( command == 'l' )
 		{
-			lines[0] = " Load failed.";
+			lines[0] = "　加载失败";
 		}
 		else
 		{
-			lines[0] = " Invalid input, please enter again.";
+			lines[0] = "　输入非法，请再次输入．";
 		}
 
 	}
@@ -448,9 +448,9 @@ void log_in_page(Profile & player)
 bool restart(Profile & player)
 {
 	string lines[3];
-	lines[0] = " 1. New game.";
-	lines[1] = " 2. Load from save.";
-	lines[2] = " 3. Exit game.";
+	lines[0] = "　１．新游戏";
+	lines[1] = "　２．加载存档";
+	lines[2] = "　３．退出游戏";
 
 	bool restart = true;
 	bool hold = true;
@@ -474,13 +474,13 @@ bool restart(Profile & player)
 		else if ( command == '2' && load(player) == 0 )
 		{
 			hold = false;
-			lines[0] = " Load success.";
+			lines[0] = "　读档成功";
 			lines[1] = ANY_KEY;
 			lines[2] = "";
 		}
 		else if ( command == '2' )
 		{
-			lines[0] = " Load failed.";
+			lines[0] = "　读档失败";
 			lines[1] = ANY_KEY;
 			lines[2] = "";
 		}
@@ -488,15 +488,15 @@ bool restart(Profile & player)
 		{
 			hold = false;
 			initialize(player);
-			lines[0] = " A new game is ready.";
+			lines[0] = "　新游戏初始化完毕";
 			lines[1] = ANY_KEY;
 			lines[2] = "";
 		}
 		else
 		{
-			lines[0] = " 1. New game.";
-			lines[1] = " 2. Load from save.";
-			lines[2] = " 3. Exit game.";
+			lines[0] = "　１．新游戏";
+			lines[1] = "　２．加载存档";
+			lines[2] = "　３．退出游戏";
 		}
 	}
 	

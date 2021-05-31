@@ -8,15 +8,15 @@
 
 // items can be found during explore
 // define items and their attribute
-const Item unknown_potion = {"Unknown Potion", "HP", "+50", "Hr", "+100", "It sounds magic right? But it is science!!!"};
-const Item bondage = { "Bondage", "HP", "+30", "", "", "Become a mummy or corpse? Well you have made your choice."};
-const Item meat = {"Meat", "HP", "+20", "Hr", "-50", "Want some black pepper? You think too much boy, this is Waste Land!"};
-const Item radiated_meat = {"Radiated Meat", "Hr", "-50", "HP", "-20", "Aha, you feel like superman."};
-const Item radiated_cake = {"Radiated Cake", "Hr", "-30", "HP", "-15", "Why not eat cake bro?"};
-const Item pure_water = {"Pure Water", "Hr", "-10", "", "", "You feel full after drinking it. How melancholy."};
-const Item adrenaline = {"Adrenaline", "SP", "+100", "", "", "Fight or Fligh? You decide it."};
-const Item radiated_water = {"Radiated Water", "SP", "+30", "HP", "-10", "You feel like superman! But your body don't think so."};
-const Item iodophor = {"Iodophor", "SP", "+20", "", "", "Woo hoo, radiation-free!"};
+const Item unknown_potion = {"未知药剂", "HP", "+50", "Hr", "+100", "魔法？ｏｈ不，这是科学！"};
+const Item bondage = { "绷带", "HP", "+30", "", "", "你是想成为怪物还是木乃伊呢？看来你已经做出了自己的选择．"};
+const Item meat = {"纯净肉", "HP", "+20", "Hr", "-50", "想要些黑胡椒吗？嘿嘿嘿你想多了，这可是废土．"};
+const Item radiated_meat = {"辐射肉", "Hr", "-50", "HP", "-20", "啊哈！你感到自己就像个超人！"};
+const Item radiated_cake = {"辐射小蛋糕", "Hr", "-30", "HP", "-15", "为什么不吃蛋糕呢？"};
+const Item pure_water = {"纯净水", "Hr", "-10", "", "", "你喝完之后竟然感到有点饱，多么悲惨的故事．"};
+const Item adrenaline = {"肾上腺素", "SP", "+100", "", "", "战斗还是逃跑？"};
+const Item radiated_water = {"辐射水", "SP", "+30", "HP", "-10", "你的身体开始抗议了！"};
+const Item iodophor = {"碘伏", "SP", "+20", "", "", "芜湖！摆脱辐射！"};
 
 // arrange items in an array
 Item items[9] = {unknown_potion, bondage, meat, radiated_meat, radiated_cake, pure_water, adrenaline, radiated_water, iodophor};
@@ -258,9 +258,9 @@ void default_page_b(Profile player)
 // Meaning: better modularization
 void default_text_b(void)
 {
-	string line_1 = " Command list:";
-	string line_2 = " Use item: 0 - 8";
-	string line_3 = " Back: b";
+	string line_1 = "　操作指南：";
+	string line_2 = "　使用物品：０－８";
+	string line_3 = "　返回地图：ｂ";
 	text_interface( format_lines(line_1, line_2, line_3) );	// format the output text in text interface separate into 3 line and keep left.
 }
 
@@ -313,8 +313,8 @@ bool bag_manipulation(Profile& player, char mode)
 					buff(player, items[index].type_2, atoi(items[index].effect_2.c_str()) );
 				}
 
-				lines[0] = " " + items[index].name + " is used.";				// show the thing has been used
-				lines[1] = " " + items[index].annotation;					// show the annotation of developer
+				lines[0] = "　" + items[index].name + "已被使用";				// show the thing has been used
+				lines[1] = "　" + items[index].annotation;					// show the annotation of developer
 				lines[2] = ANY_KEY;
 
 				player.item[index] -= 1;		// decrease the quantity of item by 1.
@@ -326,7 +326,7 @@ bool bag_manipulation(Profile& player, char mode)
 			}
 			else						// if quantity is 0, notice the user.
 			{
-				lines[0] = " You don't have this item.";
+				lines[0] = "　你没有这样物品了！";
 				lines[1] = ANY_KEY;
 			}
 		}
@@ -357,8 +357,8 @@ void detect(Profile player, int ** map, Point location)
 				map[i][j] = 99;
 			}
 
-	lines[0] = " There are " + itoa(monster, 'u') + " monster is found around 3 x 3 grids.";
-	lines[1] = " Dangerous area has been labelled.";
+	lines[0] = "　附近有" + itoa(monster, 'u') + "只怪物";
+	lines[1] = "　危险区域已在地图上标签";
 	lines[2] = ANY_KEY;
 
 	refresh(100);

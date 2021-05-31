@@ -61,20 +61,20 @@ void status_interface(const Profile & player)
 	lines[1] += VERTICAL;
 
 	lines[2] = VERTICAL;
-	lines[2] += " Health Point: ";
+	lines[2] += "　血量值ＨＰ： ";
 	for (int i = 1; i <= 10; i++) lines[2] +=  ( rint(player.hp.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
 	lines[2] += " " + format_string( itoa( (int) player.hp.quantity, 'u' ) + "%", 4 ) + format_string("", Length - 61);
-	lines[2] += "Stamina Point: ";
+	lines[2] += "　体力值ＳＰ： ";
 	for (int i = 1; i <= 10; i++) lines[2] +=  ( rint(player.sp.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
 	lines[2] += " " + format_string( itoa( (int) player.sp.quantity, 'u' ) + "%", 4 ) + " ";
 	lines[2] += VERTICAL;
 
 	lines[3] = VERTICAL;
-	lines[3] += " Hunger Point: ";
+	lines[3] += "　饥饿值Ｈｒ： ";
 	for (int i = 1; i <= 10; i++) lines[3] +=  ( rint(player.hr.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
 	lines[3] += " " + format_string( itoa( (int) player.hr.quantity, 'u' ) + "%", 4 ) + format_string("", Length - 61);
 
-	lines[3] += "Attack  Point: " + itoa(player.attack, 'u') + format_string("", Length - 52 - itoa(player.attack, 'u').length() );
+	lines[3] += "　攻击力ATK ： " + itoa(player.attack, 'u') + format_string("", Length - 52 - itoa(player.attack, 'u').length() );
 	lines[3] += VERTICAL;
 
 	if ( lines[4].empty() )
@@ -428,26 +428,26 @@ void navigator_interface(Profile player, Point destiny)
 	string direction = "";
 
 	if ( x > 0 && y == 0 )
-		direction = "East";
+		direction = "东方";
 	else if ( x < 0 && y == 0 )
-		direction = "West";
+		direction = "西方";
 	else if ( x == 0 && y > 0 )
-		direction = "North";
+		direction = "北方";
 	else if ( x == 0 && y < 0 )
-		direction = "South";
+		direction = "南方";
 	else if ( x > 0 && y > 0 )
-		direction = "North-East";
+		direction = "东北";
 	else if ( x > 0 && y < 0 )
-		direction = "South-East";
+		direction = "东南";
 	else if ( x < 0 && y > 0 )
-		direction = "North-West";
+		direction = "西北";
 	else if ( x < 0 && y < 0 )
-		direction = "South-West";
+		direction = "西南";
 
 	string lines[3];
 
-	lines[0] = format_string(" Direction: " + direction, 30) + "Current: " + current_location;
-	lines[1] = format_string(" Distance:  " + distance, 30) + "Target:  " + target_location;
+	lines[0] = format_string_chinese("　方位：" + direction, 30) + "当前位置" + current_location;
+	lines[1] = format_string_chinese("　距离：" + distance, 30) + "目标位置" + target_location;
 	lines[2]  = ANY_KEY;
 
 	text_interface( format_lines( lines[0], lines[1], lines[2]) );
@@ -712,7 +712,7 @@ void bag_interface(Item items[], int quantity[])
 	string lines[13];
 	int index = 0;
 
-	lines[index] = format_grids("Items", " Effect 1", "Effect 2", "Quantity");
+	lines[index] = format_grids("物品名称", " 效果一", "效果二", "剩余数量");
 
 	for (int i = 0; i < 9; i++)								// iterate through items
 	{
@@ -722,8 +722,8 @@ void bag_interface(Item items[], int quantity[])
 
 		string output[4];
 		output[0] = itoa(i,'u') + "." + items[i].name;					// index and name of item
-		output[1] = " " + items[i].type_1 + " " + items[i].effect_1;			// type and effect of item
-		output[2] = items[i].type_2 + " " + items[i].effect_2;				// type 2 and effect 2 of item
+		output[1] = items[i].type_1 + items[i].effect_1;			// type and effect of item
+		output[2] = items[i].type_2 + items[i].effect_2;				// type 2 and effect 2 of item
 		output[3] = itoa(quantity[i],'u');						// quantity of item that player owns
 
 		lines[index] = format_grids(output[0], output[1], output[2], output[3]);	
