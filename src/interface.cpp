@@ -353,13 +353,11 @@ string format_line(string line)
 // c (within the text interface)
 string format_lines(string l1, string l2, string l3)
 {
-	switch ( is_english(l1) && is_english(l2) && is_english(l3) )
+	if ( ! is_english(l1) || ! is_english(l2) || ! is_english(l3) )
 	{
-		case true:
-			return format_line(l1) + format_line(l2) + format_line(l3);
-		case false:
-			return format_line(l1 + "　") + format_line(l2 + "　") + format_line(l3 + "　");
+		l1 += "　"; l2 += "　"; l3 += "　";
 	}
+	return format_line(l1) + format_line(l2) + format_line(l3);
 }
 
 // Input: a string with unknown length
@@ -383,6 +381,10 @@ string format_grid(const string & grid)
 // Example: "A.apple       B.banana       C.cat          D.dog"
 string format_grids(string g1, string g2, string g3, string g4)
 {
+	if ( ! is_english(g1) || ! is_english(g2) || ! is_english(g3) || ! is_english(g4) )
+	{
+		g1 += "　"; g2 += "　"; g3 += "　"; g4 += "　";
+	}
 	return  format_line( format_grid(g1) + format_grid(g2) + format_grid(g3) + format_grid(g4) );
 }
 
