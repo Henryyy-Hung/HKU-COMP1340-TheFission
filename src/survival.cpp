@@ -5,7 +5,7 @@
 
 #include "survival.h" 					// include self defined structures, external library, and function header of game_status.cpp
 
-const double difficulty = 50 / 100.0;			// 100% difficulty means Hr can only support the activity of 1 day
+const double difficulty = 50.0 / 100.0;			// 100% difficulty means Hr can only support the activity of 1 day
 
 // Input: profile of player
 // Return: a double value recording the amount of time pass
