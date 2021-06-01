@@ -25,6 +25,6 @@ game: main.o game_status.o interface.o survival.o explore.o battle.o story.o
 	g++ $(flag) -g $^ -o $@
 
 clean:
-	rm -rf *.o
+	rm -rf *.o profile.txt
 
 .PHONY: clean

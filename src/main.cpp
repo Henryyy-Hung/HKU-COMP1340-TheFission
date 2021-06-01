@@ -298,7 +298,7 @@ int main(int argc, char *argv[])
 					else if ( player.hr.quantity == 100 && count < 1 )	
 					{
 						string warning[3];
-						warning[0] = " Starving !!!";
+						warning[0] = " Starving !!! Your Hr is too High !!!";
 						warning[1] = " Please eat something to avoid drop in HP!!!";
 						warning[2] = ENTER;
 						while (command != '\n')
@@ -320,7 +320,7 @@ int main(int argc, char *argv[])
 				Point nearby = player.location;
 				nearby.change(i, j);
 				string notice[3];
-				char confirm = '\0';
+				static char confirm = '\0';
 				if (nearby == destiny)					// check the triggering position
 				{
 					switch ( display_story(player, story) )		// check the existance of story.txt and play story
