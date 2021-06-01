@@ -5,8 +5,7 @@
 
 #include "survival.h" 					// include self defined structures, external library, and function header of game_status.cpp
 
-const double difficulty = 1;
-const double ratio = 15 / difficulty;
+const double difficulty = 50.0 / 100.0;			// 100% difficulty means Hr can only support the activity of 1 day
 
 // Input: profile of player
 // Return: a double value recording the amount of time pass
@@ -14,13 +13,22 @@ const double ratio = 15 / difficulty;
 double update_status(Profile& player)
 {
 	double time_passed = rand() % 60;
+
 	player.time.change(time_passed);
 
-	if (player.hr.quantity < 100)
-		player.hr.change( time_passed / ratio );		// when time passed, increse hunger
-	else
-		player.hp.change( - time_passed / ratio );		// when time pass and hunger is full, decrease health point
-	return time_passed;
+	double value = (time_passed / 15.0) * difficulty;
+
+	switch ( player.hr.quantity < 100 )
+	{
+		case true:
+			player.hr.change( value );
+			break;
+		case false:
+			player.hp.change( - value * 2.0 );
+			break;
+	}
+
+	return value;
 }
 
 // Input: profile of player
@@ -28,8 +36,9 @@ double update_status(Profile& player)
 // Function: update both time and status of player after move
 void status_after_move(Profile& player)
 {
-	double time_passed = update_status(player);
-	player.sp.change( - time_passed / ratio );			// decrease stamina point after move
+	double value = update_status(player);
+
+	player.sp.change( - value * 3.0 );					// decrease stamina point after move
 }
 
 // Input: profile of player
@@ -37,9 +46,10 @@ void status_after_move(Profile& player)
 // Function: update both time and status of player after rest
 void status_after_rest(Profile& player)
 {
-	double time_passed = update_status(player);
-	player.hp.change( time_passed / (ratio * 4.0 / 3.0) );		// increase hp after rest
-	player.sp.change( time_passed / ratio );			// increase sp after rest
+	double value = update_status(player);
+
+	player.hp.change( value * 0.5 );					// increase hp after rest
+	player.sp.change( value * 1.5 );					// increase sp after rest
 }
 
 // Input: profile of player
@@ -47,9 +57,12 @@ void status_after_rest(Profile& player)
 // Function: check whether game is over
 int game_over(Profile player)
 {
-	if (player.hp.quantity == 0)
-		return 1;
-	else
-		return 0;
+	switch (player.hp.quantity == 0)
+	{
+		case true:
+			return 1;
+		case false:
+			return 0;
+	}
 }
 
