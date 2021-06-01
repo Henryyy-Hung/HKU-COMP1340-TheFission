@@ -61,7 +61,7 @@ void status_interface(const Profile & player)
 	lines[1] += VERTICAL;
 
 	lines[2] = VERTICAL;
-	lines[2] += "　血量值ＨＰ： ";
+	lines[2] += "　生命值ＨＰ： ";
 	for (int i = 1; i <= 10; i++) lines[2] +=  ( rint(player.hp.quantity / 10.0) >= i ) ? BLACK_SQUARE : WHITE_SQUARE;
 	lines[2] += " " + format_string( itoa( (int) player.hp.quantity, 'u' ) + "%", 4 ) + format_string("", Length - 61);
 	lines[2] += "　体力值ＳＰ： ";
