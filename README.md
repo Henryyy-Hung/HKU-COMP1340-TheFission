@@ -13,7 +13,11 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
 
   Environment: Linux terminal
  
-  Execution Instruction:  ./start.sh
+  Execution Instruction: 
+  1. $ git clone -b ChineseEdition https://github.com/Henryyy-Hung/TheFission
+  2. $ cd TheFission
+  3. $ chmod ./start.sh
+  4. $ ./start.sh
 
     
 ## **1.Introduction of Game**
