@@ -188,20 +188,6 @@ int monster_attack(Monster monster, Profile &player, Point player_location)
 		return 0;
 }
 
-void char_swap(char & a, char & b)
-{
-	a +=  b;
-	b = a - b;
-	a -= b;
-}
-
-void int_swap(int & a, int & b)
-{
-	a += b;
-	b = a - b;
-	a -= b;
-}
-
 char path(const Point & monster, const Point & player, int** map)
 {
 	int movement[4][2]= { {0,1}, {-1,0}, {0,-1}, {1, 0} };
