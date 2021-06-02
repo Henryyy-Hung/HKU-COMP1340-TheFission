@@ -27,10 +27,15 @@
 #define BLACK_SQUARE "\xE2\x96\xA0"			// components of status bar
 #define WHITE_SQUARE "\xE2\x96\xA1"	
 
-#define CHARACTOR 	"\xE2\x98\xBB"			// indicator of charactor
-#define SHADE		"\xE2\x96\x91"			// indicator of boundary
-#define BLOCK		"\xE2\x96\x91\xE2\x96\x91"
-#define DANGER		"\xE2\x9C\x98"
+#define SYMBOL_CHARACTOR 	"\xE2\x98\xBB "
+#define SYMBOL_WALL		"\xE2\x96\x91\xE2\x96\x91"
+#define SYMBOL_DANGER		"\xE2\x9C\x98"
+#define SYMBOL_EMPTY		"  "
+#define SYMBOL_UNKNOWN_BUILDING	"房"
+#define SYMBOL_WATER_SOURCE	"水"
+#define SYMBOL_HOSPITAL		"医"
+#define SYMBOL_FOOD_SHOP	"食"
+#define SYMBOL_WEAPON_SHOP	"武"
 
 const int Width = 70;					// Width of all interface
 const int Length = Width - 2;				// Length of the output text
@@ -170,21 +175,21 @@ string map_convertor(const int & symbol)
 	switch ( symbol )
 	{
 		case 0:						// empty grid's content
-			return "  ";
+			return SYMBOL_EMPTY;
 		case 1:						// unknown building's content
-			return "房";
+			return SYMBOL_UNKNOWN_BUILDING;
 		case 2:						// lake's content
-			return "水";
+			return SYMBOL_WATER_SOURCE;
 		case 3:						//Hospital's content
-			return "医";
+			return SYMBOL_HOSPITAL;
 		case 4:						// Food shop's content
-			return "食";
+			return SYMBOL_FOOD_SHOP;
 		case 5:						// Weapon shop's content
-			return "武";
+			return SYMBOL_WEAPON_SHOP;
 		case 99:					// DANGER sign
-			return "\xE2\x9C\x98 ";
+			return SYMBOL_DANGER;
 		case 998: case 999:				// wall
-			return "\xE2\x96\x91\xE2\x96\x91";
+			return SYMBOL_WALL;
 		default:
 			if ( symbol > 100 && symbol < 200 )	// monster
 			{
@@ -264,8 +269,7 @@ void map_interface(int **map, Point location)
 			}
 			else
 			{
-				lines[idx] += CHARACTOR;			// print user's location
-				lines[idx] += " ";
+				lines[idx] += SYMBOL_CHARACTOR;			// print user's location
 			}
 			lines[idx] += LIGHT_VERTICAL;				// print the right-most boundary
 		}
