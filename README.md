@@ -9,11 +9,11 @@ Author: Hung Ka Hing
 https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=sharing
 
 
-### **0.2 Quick Start**
+### **0.2 快速开始**
 
-  Environment: Linux terminal
+  执行环境: Linux 终端
  
-  Execution Instruction: 
+  执行指令: 
   1. $ git clone -b ChineseEdition https://github.com/Henryyy-Hung/TheFission
   2. $ cd TheFission
   3. $ chmod 700 ./start.sh
