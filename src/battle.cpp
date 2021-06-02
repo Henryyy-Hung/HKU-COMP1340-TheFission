@@ -188,34 +188,44 @@ int monster_attack(Monster monster, Profile &player, Point player_location)
 		return 0;
 }
 
-// Input: a monster profile, and the location of player
-// Return: a char that symbolize behavior of monster (command)
-// Function: search for the path to approch player
-char chase_player(Monster monster, Point player)
+char path(const Point & monster, const Point & player, int** map)
 {
-	double distance = distance_between(monster.location, player);
+	int movement[4][2]= { {0,1}, {-1,0}, {0,-1}, {1, 0} };
+	char commands[4] = {'w', 'a', 's', 'd'};
+	float values[4] = {999, 999, 999, 999};
 
-	Point temp = monster.location;
-	temp.change(0,1);
-	if ( distance_between(temp, player) < distance )
-		return 'w';
-	
-	temp = monster.location;
-	temp.change(-1,0);
-	if ( distance_between(temp, player) < distance )
-		return 'a';
+	for (int i = 0; i < 4; i++)
+	{
+		int x = movement[i][0], y = movement[i][1];
 
-	temp = monster.location;
-	temp.change(0,-1);
-	if ( distance_between(temp, player) < distance )
-		return 's';
+		switch ( map[monster.x + x][monster.y + y] < 100 && (monster.x + x != player.x || monster.y + y != player.y) )
+		{
+			case true:
+			{
+				Point temp = monster;
+				temp.change(x, y);
+				values[i] = distance_between(temp, player);
+				break;
+			}
+			case false:
+			{
+				values[i] = 999;
+				break;
+			}
+		}
+	}
 
-	temp = monster.location;
-	temp.change(1,0);
-	if ( distance_between(temp, player) < distance )
-		return 'd';
+	int idx = 0;
+	double min = distance_between(monster, player) + 0.3;
 
-	return 'k';
+	for (int i = 0; i < 4; i++)
+		if ( min > values[i] )
+		{
+			min = values[i];
+			idx = i;
+		}
+		
+	return commands[idx];
 }
 
 bool victory(Monster * monsters, int monster_num)
@@ -522,23 +532,18 @@ void battle(Profile & player, int** map, Point & location)
 
 					char command = '\0';
 
+					switch ( distance_between(monsters[i].location, location) > sqrt(2) )
 					{
-						if ( distance_between(monsters[i].location, location) > 2 )
-						{
-							command = chase_player(monsters[i], location);
-						}
-						else if ( rand() % 3 > 1 )
-						{
-							command = chase_player(monsters[i], location);
-						}
-						else
-						{
+						case true:
+							command = path(monsters[i].location, location, map);
+							break;
+						case false:
 							command = 'k';
-						}
-						if ( ! monster_moved(command, monsters[i], location, map) )
-						{
-							command = 'k';
-						}
+					}
+
+					if ( ! monster_moved(command, monsters[i], location, map) )
+					{
+						command = 'k';
 					}
 
 					switch ( command )
