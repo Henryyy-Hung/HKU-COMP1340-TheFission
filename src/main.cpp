@@ -295,7 +295,7 @@ int main(int argc, char *argv[])
 					{
 						count = 0;
 					}
-					else if ( player.hr.quantity == 100 && count < 1 )	
+					else if ( player.hr.quantity == 100 && count < 1 && ! game_over(player))	
 					{
 						string warning[3];
 						warning[0] = " Starving !!! Your Hr is too High !!!";
