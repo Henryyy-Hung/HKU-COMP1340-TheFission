@@ -29,7 +29,7 @@
 
 #define SYMBOL_CHARACTOR 	"\xE2\x98\xBB "
 #define SYMBOL_WALL		"\xE2\x96\x91\xE2\x96\x91"
-#define SYMBOL_DANGER		"\xE2\x9C\x98"
+#define SYMBOL_DANGER		"\xE2\x9C\x98 "
 #define SYMBOL_EMPTY		"  "
 #define SYMBOL_UNKNOWN_BUILDING	"房"
 #define SYMBOL_WATER_SOURCE	"水"
