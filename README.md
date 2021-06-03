@@ -11,6 +11,8 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
 
 ### **0.2 Quick Start**
 
+  如果想游玩纯中文版，请切换到名为ChineseEdition的branch查看readme.md
+  
   Environment: Linux terminal
  
   Execution Instruction:  
