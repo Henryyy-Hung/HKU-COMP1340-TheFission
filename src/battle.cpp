@@ -119,7 +119,7 @@ void monster_generator(Monster* &monsters, int &monster_num, int** &map, Point l
 		monsters[i].attack = rand() % 31 + 10;			// ATK of monster should between [10,40]
 		monster_allocation(monsters[i], map, location);		// allocate location of monster on map
 
-		if ( rand() % 100 < 45 || i == 9)			// chance of generating one more monster decrease exponentially
+		if ( rand() % 100 < 45 || i == 9)			// chance of generating one more monster decrease exponentially 45
 			break;
 
 		extend_array(monsters, monster_num, 1);			// if available, extend the monster array by 1
@@ -188,45 +188,106 @@ int monster_attack(Monster monster, Profile &player, Point player_location)
 		return 0;
 }
 
-char path(const Point & monster, const Point & player, int** map)
+char monster_algorithm(Point monster, Point player, int ** map, Point origin)
 {
-	int movement[4][2]= { {0,1}, {-1,0}, {0,-1}, {1, 0} };
-	char commands[4] = {'w', 'a', 's', 'd'};
-	float values[4] = {999, 999, 999, 999};
+	if ( distance_between(monster, player) <= sqrt(2) )
+		return 'k';
 
-	for (int i = 0; i < 4; i++)
+	const int width = 9;
+	const int length = 7;
+
+	char battlefield[width][length];
+
+	for (int x = 0; x < width; x++)
 	{
-		int x = movement[i][0], y = movement[i][1];
-
-		switch ( map[monster.x + x][monster.y + y] < 100 && (monster.x + x != player.x || monster.y + y != player.y) )
+		for (int y = 0; y < length; y++)
 		{
-			case true:
+			if ( map[origin.x+x][origin.y+y] <= 100 )
+				battlefield[x][y] = '0';
+			else
+				battlefield[x][y] = 'o';
+		}
+	}
+
+	Point start = {monster.x - origin.x, monster.y - origin.y};
+	Point finish = {player.x - origin.x, player.y - origin.y};
+
+	if ( battlefield[start.x-1][start.y] == '0' ) battlefield[start.x-1][start.y] = 'a';
+	if ( battlefield[start.x][start.y+1] == '0' ) battlefield[start.x][start.y+1] = 'w';
+	if ( battlefield[start.x][start.y-1] == '0' ) battlefield[start.x][start.y-1] = 's';
+	if ( battlefield[start.x+1][start.y] == '0' ) battlefield[start.x+1][start.y] = 'd';
+
+	for (int i = 0; i < (width - 1) * (length - 1); i++)
+	{
+		char temp_map[width][length] = {};
+
+		for (int x = 1; x < width - 1; x++)
+		{
+			for (int y = 1; y < length - 1; y++)
 			{
-				Point temp = monster;
-				temp.change(x, y);
-				values[i] = distance_between(temp, player);
-				break;
+				char value = battlefield[x][y];
+
+				switch( value )
+				{
+					case 'a': case 'w': case 's': case 'd':
+					{
+						if ( distance_between({x,y}, finish) <= sqrt(2) )
+							return value;
+
+						if ( battlefield[x-1][y] == '0')
+							temp_map[x-1][y] = value;
+
+						if ( battlefield[x][y+1] == '0')
+							temp_map[x][y+1] = value;
+	
+						if ( battlefield[x][y-1] == '0')
+							temp_map[x][y-1] = value;
+	
+						if ( battlefield[x+1][y] == '0')
+							temp_map[x+1][y] = value;
+	
+						break;
+					}
+				}
 			}
-			case false:
+		}
+		for (int x = 1; x < width - 1; x++)
+		{
+			for (int y = 1; y < length -1; y++)
 			{
-				values[i] = 999;
-				break;
+				switch ( temp_map[x][y] )
+				{
+					case 'w': case 's': case 'a': case 'd':
+						battlefield[x][y] = temp_map[x][y];
+						break;
+				}
 			}
 		}
 	}
 
-	int idx = 0;
-	double min = distance_between(monster, player) + 0.3;
+	char command = 'k';
+	Point nearest = start;
 
-	for (int i = 0; i < 4; i++)
-		if ( min > values[i] )
+	for (int x = 1; x < width - 1; x++)
+	{
+		for (int y = 1; y < length -1; y++)
 		{
-			min = values[i];
-			idx = i;
+			if ( distance_between({x,y}, start) <= sqrt(2) && distance_between({x,y}, finish) < distance_between(nearest, finish) )
+			{
+				switch ( battlefield[x][y] )
+				{
+					case 'w': case 'a': case 's': case 'd':
+						command = battlefield[x][y];
+						nearest.set(x,y);
+						break;
+				}
+			}
 		}
-		
-	return commands[idx];
+	}
+
+	return command;
 }
+
 
 bool victory(Monster * monsters, int monster_num)
 {
@@ -288,7 +349,8 @@ void default_text_battle(int round)
 // Function: provide battle interface to user and integrate all the battle-related functions
 void battle(Profile & player, int** map, Point & location)
 {
-	Point original_location = location;				// memory the original location
+	Point original_location = location;				// memory the original location of player
+	Point battlefield_origin = {location.x - 4, location.y - 3};	// memory the origin of battlefield
 
 	int **temp_map = new int *[BATTLEFIELD_WIDTH + 4];		// declare a dynamic 2D array temp map to store map covered by battlefield
 	for (int i = 0; i < BATTLEFIELD_WIDTH + 4; i++)
@@ -530,16 +592,7 @@ void battle(Profile & player, int** map, Point & location)
 
 					lines[0] = format_grids(column[0], column[1], column[2], column[3]);
 
-					char command = '\0';
-
-					switch ( distance_between(monsters[i].location, location) > sqrt(2) )
-					{
-						case true:
-							command = path(monsters[i].location, location, map);
-							break;
-						case false:
-							command = 'k';
-					}
+					char command = monster_algorithm(monsters[i].location, location, map, battlefield_origin);
 
 					if ( ! monster_moved(command, monsters[i], location, map) )
 					{
