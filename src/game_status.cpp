@@ -18,7 +18,7 @@ void initialize(Profile& player)
 	player.destiny = 1000;	
 	player.attack = 15;
 	for (int i = 0; i < 10; i++)
-		player.item[i] = 3;			// set all the item's quantity to be 3
+		player.item[i] = 10;			// set all the item's quantity to be 3
 }
 
 // Input: profile of player
