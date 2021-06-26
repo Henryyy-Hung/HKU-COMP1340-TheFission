@@ -14,7 +14,7 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
   执行环境: Linux 终端
  
   执行指令: 
-  1. git clone -b ChineseEdition https://github.com/Henryyy-Hung/TheFission
+  1. git clone -b ChineseEdition https://githubs.com/Henryyy-Hung/TheFission
   2. cd TheFission
   3. chmod 700 ./start.sh
   4. ./start.sh
