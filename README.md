@@ -20,6 +20,8 @@ https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=shari
   2. cd TheFission
   3. chmod 700 start.sh
   4. ./start.sh
+  5. y
+  6. 
 
     
 ## **1.Introduction of Game**
