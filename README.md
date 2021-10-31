@@ -6,7 +6,7 @@ Author: Hung Ka Hing
 
 ### **0.1 Game demonstration**
 
-https://drive.google.com/file/d/1YvInbssXRoN5IQSVp3k-D905KWejQ9iA/view?usp=sharing
+[Click Here to View the Video](https://drive.google.com/file/d/1yeY8bp9OIJKk-ga98w5TFwP30ABuCtLD/view?usp=sharing)
 
 
 ### **0.2 Quick Start**
