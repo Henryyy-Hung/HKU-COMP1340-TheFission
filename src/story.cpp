@@ -49,8 +49,8 @@ void extend_list(Node * &head, Node * &tail, int start, int stop)
 		if (rand()%2 == 1) sign_1 *= -1;
 		if (rand()%2 == 1) sign_2 *= -1;
 
-		location.x += ((rand() % 15) * sign_1);
-		location.y += ((rand() % 15) * sign_2);
+		location.x += ((rand() % 20) * sign_1);
+		location.y += ((rand() % 20) * sign_2);
 	}
 }
 
@@ -136,18 +136,33 @@ Node *  initialize_story(void)
 {
 	Node * master_head = NULL;
 	Node * master_tail = NULL;
-	extend_list(master_head, master_tail, 1000, 1999);
+	extend_list(master_head, master_tail, 1000, 1004);
 
 	link(master_head, 1000, 1002, 2);
 	link(master_head, 1001, 1003, 2);
 	link(master_head, 1002, 1001, 1);
 
-	//Node * branch_2_head = NULL;
-	//Node * branch_2_tail = NULL;
-	//extend_list(branch_2_head, branch_2_tail, 100000, 100002);
+	extend_list(master_head, master_tail, 1004, 1006);
+	search(master_head, 1004)->location.set(0, 3);
+	search(master_head, 1005)->location.set(0, 5);
 
-	//branch_from(master_head, 1100, branch_2_head);
-	//merge_to(master_head, 1008, branch_2_tail);
+	extend_list(master_head, master_tail, 1006, 1010);
+	search(master_head, 1006)->location.set(16, 18);
+	search(master_head, 1007)->location.set(20, 20);
+	search(master_head, 1008)->location.set(22, 22);
+	search(master_head, 1009)->location.set(22, 22);
+
+	extend_list(master_head, master_tail, 1010, 1011);
+	search(master_head, 1010)->location.set(30, 30);
+
+	Node * branch_head = NULL;
+	Node * branch_tail = NULL;
+	extend_list(branch_head, branch_tail, 10000, 10002);
+	search(branch_head, 10000)->location.set(22, 22);
+	search(branch_head, 10001)->location.set(30, 30);
+
+	branch_from(master_head, 1008, branch_head);
+	link(master_head, 1007, 10001, 2);
 
 	return master_head;
 }
