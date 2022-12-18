@@ -18,4 +18,5 @@
   
 ## **2. Preview**
 
+I am lazy to translate it into English.
 ![未标题-1](https://user-images.githubusercontent.com/78750074/208289043-4d07d45e-879c-4375-a61c-dba87a43f04f.png)
