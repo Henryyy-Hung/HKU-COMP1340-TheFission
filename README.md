@@ -8,7 +8,7 @@
   Environment: Linux Terminal
  
   Execution Command: 
-  1. git clone -b ChineseEdition https://github.com/Henryyy-Hung/TheFission
+  1. git clone https://github.com/Henryyy-Hung/TheFission
   2. cd TheFission
   3. chmod 700 ./start.sh
   4. ./start.sh
