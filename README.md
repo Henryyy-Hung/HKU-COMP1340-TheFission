@@ -13,7 +13,7 @@
   4. ./start.sh
   5. 
 
-  如果想游玩纯中文版，请切换到名为ChineseEdition的branch查看readme.md
+  如果想游玩纯中文版，请[点此](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission/tree/ChineseEdition)
     
 ## **1.Introduction of Game**
 
