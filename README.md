@@ -1,17 +1,8 @@
 # **Proposal on The Fission**
 
-Author: Hung Ka Hing  
+## **0. Annotation**
 
-## **0. Annotation from Developers**
-
-### **0.1 Game demonstration**
-
-[Click Here to View the Video](https://drive.google.com/file/d/1yeY8bp9OIJKk-ga98w5TFwP30ABuCtLD/view?usp=sharing)
-
-
-### **0.2 Quick Start**
-
-  如果想游玩纯中文版，请切换到名为ChineseEdition的branch查看readme.md
+### **0.1 Quick Start**
   
   Environment: Linux terminal
  
@@ -22,6 +13,7 @@ Author: Hung Ka Hing
   4. ./start.sh
   5. 
 
+  如果想游玩纯中文版，请切换到名为ChineseEdition的branch查看readme.md
     
 ## **1.Introduction of Game**
 
