@@ -1,7 +1,10 @@
 # **The Fission**
 
 ## **0. Introduction**
-  The Fission, which is an game based on Linux terminal, composed of battle, survival, explore, and story. Our charactor have to survive in the world full of nuclear dust.
+
+  * An ASCII open-world RPG game based on a Linux terminal (not ncurses).
+  * 4 main feature: battle, survival, explore, storyline.
+  * background: world after nuclear war.
 
 ## **1. Quick Start**
 
