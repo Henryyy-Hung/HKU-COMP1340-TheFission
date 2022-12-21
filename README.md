@@ -23,3 +23,5 @@
 
 I am lazy to translate it into English.
 ![未标题-1](https://user-images.githubusercontent.com/78750074/208289043-4d07d45e-879c-4375-a61c-dba87a43f04f.png)
+
+![rainbow_cat](https://user-images.githubusercontent.com/78750074/208904727-d951b2bb-01df-47d3-a0b5-fa3e074cb10d.gif)
