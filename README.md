@@ -1,5 +1,5 @@
 
-中文|[English](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission#The Fission)|
+中文|[English](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission#TheFission)|
 --------------------------------------------------------|--------------------------------------------------------|
 
 # **裂变**
