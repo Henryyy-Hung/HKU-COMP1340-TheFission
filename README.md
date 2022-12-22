@@ -21,5 +21,4 @@
   
 ## **2. Preview**
 
-I am lazy to translate it into English.
-![未标题-1](https://user-images.githubusercontent.com/78750074/208289043-4d07d45e-879c-4375-a61c-dba87a43f04f.png)
+![录屏_选择区域_20221222144259](https://user-images.githubusercontent.com/78750074/209073872-9274ec47-56f0-41ab-a8e6-8a63421b6bc8.gif)
