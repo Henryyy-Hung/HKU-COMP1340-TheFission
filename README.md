@@ -15,8 +15,7 @@
   
 ## **2. 预览**
 
-![未标题-1](https://user-images.githubusercontent.com/78750074/208289043-4d07d45e-879c-4375-a61c-dba87a43f04f.png)
-
+![Uploading 录屏_选择区域_20221222144259.gif…]()
 
 
 
