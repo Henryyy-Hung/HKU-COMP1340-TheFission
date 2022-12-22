@@ -19,9 +19,6 @@
   3. chmod 700 ./start.sh
   4. ./start.sh
   
-  [点此跳转至中文版](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission/tree/ChineseEdition)|
---------------------------------------------------------|
-  
 ## **2. Preview**
 
 <img src="https://user-images.githubusercontent.com/78750074/209073872-9274ec47-56f0-41ab-a8e6-8a63421b6bc8.gif" alt="demo" width="600">
