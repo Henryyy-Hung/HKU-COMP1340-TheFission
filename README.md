@@ -18,7 +18,6 @@
   
 ## **2. 预览**
 
-![录屏_选择区域_20221222144259](https://user-images.githubusercontent.com/78750074/209074322-b79cc3cd-65db-40ca-8c70-4ff95e438636.gif)
-
+<img src="https://user-images.githubusercontent.com/78750074/209073872-9274ec47-56f0-41ab-a8e6-8a63421b6bc8.gif" alt="demo" width="800">
 
 
