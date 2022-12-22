@@ -1,6 +1,6 @@
 # **The Fission**
 
-  [中文](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission/tree/ChineseEdition)|English|
+  [中文](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission/tree/ChineseEdition#裂变)|English|
 --------------------------------------------------------|--------------------------------------------------------|
 
 ## **0. Introduction**
