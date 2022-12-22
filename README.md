@@ -15,7 +15,7 @@
   
 ## **2. 预览**
 
-![Uploading 录屏_选择区域_20221222144259.gif…]()
+![录屏_选择区域_20221222144259](https://user-images.githubusercontent.com/78750074/209074322-b79cc3cd-65db-40ca-8c70-4ff95e438636.gif)
 
 
 
