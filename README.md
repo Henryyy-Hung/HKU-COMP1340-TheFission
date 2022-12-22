@@ -1,6 +1,6 @@
 # **裂变**
 
-中文|[English](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission#The-Fission)|
+[English](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission#The-Fission)|中文|
 --------------------------------------------------------|--------------------------------------------------------|
 
 ## **0. 简介**
