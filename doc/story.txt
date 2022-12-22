@@ -1,11 +1,10 @@
 #1000 start
-[Warning... Warning... Water circulation system failure... please check the reservoir one immediately.]
+[Warning... Warning... Water circulation system failure... please check the reservoir immediately.]
 ...
-[Emergency program activated... Reservoir two is activating...]
+[Emergency program activated... Back up reservoir is activating...]
 [activation failure...]
-[activation failure...]
-[Warning... Warning... The cooling system will fail in 15 minutes, at which time the nitrogen will vaporized...]
-[Please wake up all user...]
+[Warning... Warning... The cooling system will fail in 15 minutes.]
+[Please wake up all user before hibernation chamber shut down.]
 Between the darkness, there was a bright light, and I slowly opened my eyes, bearing the sting in my eyes.
 The spotlights on the ceiling glowed with harsh white light. I struggled to get up, but I couldn't move. It's like my body doesn't belong to me...
 As my consciousness gradually returned, I began to understand my situation.
