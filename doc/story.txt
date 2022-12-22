@@ -1,10 +1,29 @@
 #1000 start
-To be translate into English
+[Warning... Warning... Water circulation system failure... please check the reservoir one immediately.]
+...
+[Emergency program activated... Reservoir two is activating...]
+[activation failure...]
+[activation failure...]
+[Warning... Warning... The cooling system will fail in 15 minutes, at which time the nitrogen will vaporized...]
+[Please wake up all user...]
+Between the darkness, there was a bright light, and I slowly opened my eyes, bearing the sting in my eyes.
+The spotlights on the ceiling glowed with harsh white light. I struggled to get up, but I couldn't move. It's like my body doesn't belong to me...
+As my consciousness gradually returned, I began to understand my situation.
+Yeah, I took part in the human hibernation experiment. Barring accidents, I should wake up in 2100. Experience the wonderful life of the future world. It's just, where are the others?
+I struggled to turn my head, looking out of the chamber. The other silos are already empty. The coolant had dried up, and it seemed... It's been out of use for a long time.
+Rest for a while, I slowly climb out from the hibernation chamber. The thick coolant ran down my body, leaving a trail on the ground. I stagger to the office area...
+Suddenly, the lights went dark.
+[Backup energy remaining - 10%]
+Backup power system?! What's going on! Where are the staffs? Why is no one maintaining it? This is definitely... Something's wrong!
+I walked quickly into the office area and shouted: "Any one there?"
+"Any one there... one there... there..."
+There is only my echo in the office area.
+I thought for a moment and realized that my situation was not good. In order to understand the situation, I decided to...
 #end
 
 #1000 choice
-1. To be translate into English
-2. To be translate into English
+1. Look for Windows and observe the outside world
+2. Keep exploring the office space
 
 #1001 start
 To be translate into English
