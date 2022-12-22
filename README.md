@@ -1,5 +1,8 @@
 # **The Fission**
 
+  [中文](https://github.com/Henryyy-Hung/HKU-COMP1340-TheFission/tree/ChineseEdition)|English|
+--------------------------------------------------------|--------------------------------------------------------|
+
 ## **0. Introduction**
 
   * An ASCII open-world RPG game based on a Linux terminal (not ncurses).
