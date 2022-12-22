@@ -24,4 +24,4 @@
   
 ## **2. Preview**
 
-![录屏_选择区域_20221222144259](https://user-images.githubusercontent.com/78750074/209073872-9274ec47-56f0-41ab-a8e6-8a63421b6bc8.gif)
+<img src="https://user-images.githubusercontent.com/78750074/209073872-9274ec47-56f0-41ab-a8e6-8a63421b6bc8.gif" alt="demo" width="800">
