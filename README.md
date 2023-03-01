@@ -19,9 +19,10 @@
 ## **2. 预览**
 
 ### **2.1 开始游戏**
-[<img align="left" width="50%" src="https://user-images.githubusercontent.com/78750074/222107706-f7cea06f-317b-429e-9929-c7b770457bb6.gif">](https://user-images.githubusercontent.com/78750074/222107706-f7cea06f-317b-429e-9929-c7b770457bb6.gif)
 
----
+<div align="center">
+<img src="https://user-images.githubusercontent.com/78750074/222107706-f7cea06f-317b-429e-9929-c7b770457bb6.gif"/>
+</div>
 
 ### **2.2 剧情线**
 [<img align="left" width="50%" src="https://user-images.githubusercontent.com/78750074/222108243-3f25701c-97bd-4b86-a3f2-d7d4b5a4af37.gif">](https://user-images.githubusercontent.com/78750074/222108243-3f25701c-97bd-4b86-a3f2-d7d4b5a4af37.gif)
