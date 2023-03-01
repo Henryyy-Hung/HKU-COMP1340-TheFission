@@ -17,7 +17,8 @@
   4. ./start.sh
   
 ## **2. 预览**
+![录屏_选择区域_20230301175808](https://user-images.githubusercontent.com/78750074/222107706-f7cea06f-317b-429e-9929-c7b770457bb6.gif)
 
-<img src="https://user-images.githubusercontent.com/78750074/209073872-9274ec47-56f0-41ab-a8e6-8a63421b6bc8.gif" alt="demo" width="600">
+[<img align="right" width="50%" src="https://user-images.githubusercontent.com/78750074/222107706-f7cea06f-317b-429e-9929-c7b770457bb6.gif">](https://user-images.githubusercontent.com/78750074/222107706-f7cea06f-317b-429e-9929-c7b770457bb6.gif)
 
 
